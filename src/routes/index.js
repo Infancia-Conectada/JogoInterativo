@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+
+
 // Importar rotas específicas
 const homeRoutes = require('./home');
+
 
 // Usar as rotas
 router.use('/', homeRoutes);

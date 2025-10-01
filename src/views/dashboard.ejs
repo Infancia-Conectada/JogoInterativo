@@ -8,36 +8,43 @@
 </head>
 <body>
     <div class="container">
-        <div class="content-section">
-            <h1 class="title">📁 Explicação simples de como criar uma pasta</h1>
-            
-            <ul class="steps-list">
-                <li class="step-item">Clique com o botão direito do mouse em uma área vazia</li>
-                <li class="step-item">Procure por "Nova pasta" ou "Criar pasta" no menu</li>
-                <li class="step-item">Clique em "Nova pasta"</li>
-                <li class="step-item">Digite o nome que você quer dar para a pasta</li>
-                <li class="step-item">Pressione Enter para confirmar</li>
-            </ul>
-        </div>
-
-        <div class="visual-section">
-            <div class="computer-illustration">
-                <div class="screen">
-                    <div class="screen-header">
-                        🖥️ Meu Computador
-                    </div>
-                    <div class="folder-icons" id="folderContainer">
-                        <div class="folder-icon"></div>
-                        <div class="folder-icon"></div>
-                        <div class="folder-icon"></div>
-                        <div class="folder-icon new-folder"></div>
-                        <div class="folder-icon"></div>
-                    </div>
+        <header class="header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
                 </div>
             </div>
-        </div>
+            <h1 class="main-title">Como Criar uma Pasta</h1>
+        </header>
+
+        <main class="content">
+            <div class="rules-section">
+                <ul class="steps-list">
+                    <li class="step-item">Clique com o botão direito do mouse em uma área vazia</li>
+                    <li class="step-item">Procure por "Nova pasta" ou "Criar pasta" no menu</li>
+                    <li class="step-item">Clique em "Nova pasta"</li>
+                    <li class="step-item">Digite o nome que você quer dar para a pasta</li>
+                    <li class="step-item">Pressione Enter para confirmar</li>
+                </ul>
+            </div>
+      
+            <!-- Seção de Imagens -->
+            <div class="image-section">
+                <img src="/images/criando-pag1.png" alt="Passo 1: Clique com botão direito" class="image-item">
+                <img src="/images/criando-pag2.png" alt="Passo 2: Selecione Nova Pasta" class="image-item">
+            </div>
+        </main>
+
+        <footer class="footer">
+            <button class="learn-more-btn" id="learnMoreBtn">
+                <span>Próxima Página</span>
+                <div class="btn-glow"></div>
+            </button>
+        </footer>
     </div>
 
-    <script src="./dashboard.js"></script>
+    <script src="js/dashboard.js"></script>
 </body>
 </html>

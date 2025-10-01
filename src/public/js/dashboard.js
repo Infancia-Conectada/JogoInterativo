@@ -2,6 +2,9 @@
 let folderCount = 0;
 let isAnimating = false;
 
+
+
+
 // Mensagens motivacionais para as crianças
 const successMessages = [
     "🎉 Parabéns! Você criou uma nova pasta!",
@@ -22,6 +25,8 @@ const folderNames = [
     "Trabalhos da Escola",
     "Histórias Fantásticas"
 ];
+
+
 
 // Função para inicializar os eventos quando a página carregar
 document.addEventListener('DOMContentLoaded', function() {
