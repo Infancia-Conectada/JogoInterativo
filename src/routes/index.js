@@ -10,7 +10,11 @@ router.use('/', homeRoutes);
 router.get('/tecladomouse', function (req, res) {
     res.render('tecladomouse');
 })
-
+router.use('/', homeRoutes);
+ 
+router.get('/quiztecladomouse', function (req, res) {
+    res.render('quiztecladomouse');
+})
 // Aqui você pode adicionar outras rotas no futuro:
 // const userRoutes = require('./user');
 // const adminRoutes = require('./admin');
