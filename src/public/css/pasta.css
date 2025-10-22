@@ -1,0 +1,361 @@
+/* ========================================
+   FONTES E VARIÁVEIS DE CORES
+======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Mochiy+Pop+One&display=swap');
+ 
+:root {
+    --fundo-principal: #0F172A;
+    --cor-primaria: #3B82F6;
+    --cor-secundaria: #22D3EE;
+    --cor-destaque: #FACC15;
+    --texto-principal: #F1F5F9;
+    --texto-secundario: #94A3B8;
+    --vidro-fundo: rgba(15, 23, 42, 0.8);
+    --vidro-borda: rgba(241, 245, 249, 0.1);
+    --radius: 12px;
+}
+ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+body {
+    font-family: 'Mochiy Pop One', sans-serif;
+    background: var(--fundo-principal);
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(250, 204, 21, 0.2) 0%, transparent 50%);
+    min-height: 100vh;
+    color: var(--texto-principal);
+    padding: 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+ 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+ 
+/* ========================================
+   CABEÇALHO
+======================================== */
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+ 
+.browser-bar {
+    background: var(--vidro-fundo);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--vidro-borda);
+    border-radius: 12px 12px 0 0;
+    padding: 15px;
+    margin-bottom: -1px;
+}
+ 
+.browser-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+}
+ 
+.dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+ 
+.dot.orange {
+    background: #F59E0B;
+}
+ 
+.dot:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px currentColor;
+}
+ 
+.main-title {
+    background: var(--vidro-fundo);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--vidro-borda);
+    border-radius: 0 0 12px 12px;
+    padding: 20px;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    font-weight: 400;
+    font-family: 'Mochiy Pop One', sans-serif;
+    background: linear-gradient(45deg, var(--cor-primaria), var(--cor-secundaria));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+ 
+/* ========================================
+   CONTEÚDO PRINCIPAL
+======================================== */
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+ 
+/* ========================================
+   SEÇÃO DE REGRAS/PASSOS
+======================================== */
+.rules-section {
+    background: var(--vidro-fundo);
+    backdrop-filter: blur(15px);
+    border: 3px solid var(--vidro-borda);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+ 
+.rules-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg,
+                rgba(59, 130, 246, 0.05) 0%,
+                transparent 50%,
+                rgba(34, 211, 238, 0.05) 100%);
+    border-radius: 16px;
+    pointer-events: none;
+}
+ 
+.steps-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: step-counter;
+    padding-left: 20px;
+    position: relative;
+    z-index: 2;
+}
+ 
+.step-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 18px;
+    padding-left: 30px;
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: rgba(59, 130, 246, 0.05);
+    border: 2px solid var(--vidro-borda);
+    color: var(--texto-principal); /* <<< ALTERADO AQUI */
+    font-size: 0.85rem;
+    font-family: 'Mochiy Pop One', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+ 
+.step-item::before {
+    content: counter(step-counter);
+    counter-increment: step-counter;
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+    color: var(--texto-principal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    border: 2px solid var(--fundo-principal);
+}
+ 
+.step-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(34, 211, 238, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+ 
+.step-item:hover::after {
+    opacity: 1;
+}
+ 
+.step-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+ 
+.step-item.highlighted {
+    background: rgba(59, 130, 246, 0.2) !important;
+    border-color: rgba(59, 130, 246, 0.6) !important;
+    transform: translateX(15px) scale(1.02) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5) !important;
+}
+ 
+/* ========================================
+   SEÇÃO DE IMAGENS
+======================================== */
+.image-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background: var(--vidro-fundo);
+    backdrop-filter: blur(15px);
+    border: 3px solid var(--vidro-borda);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+ 
+.image-item {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid var(--vidro-borda);
+}
+ 
+.image-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+ 
+/* ========================================
+   RODAPÉ E BOTÃO
+======================================== */
+.footer {
+    position: fixed;
+    bottom: 30px;
+    right: 50px;
+    margin: 0;
+    text-align: right;
+    z-index: 1000;
+}
+ 
+.learn-more-btn {
+    position: relative;
+    background: linear-gradient(45deg, var(--cor-primaria), var(--cor-secundaria));
+    border: none;
+    padding: 18px 35px;
+    border-radius: 30px;
+    color: var(--texto-principal);
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-family: 'Mochiy Pop One', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+}
+ 
+.learn-more-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.6);
+}
+ 
+.learn-more-btn:active {
+    transform: translateY(0);
+}
+ 
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+ 
+.learn-more-btn:hover .btn-glow {
+    left: 100%;
+}
+ 
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+@media (max-width: 768px) {
+    .content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+   
+    .main-title {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+   
+    .rules-section {
+        padding: 25px;
+    }
+ 
+    .steps-list {
+        padding-left: 15px;
+    }
+ 
+    .step-item {
+        font-size: 0.75rem;
+        padding: 15px;
+        padding-left: 25px;
+    }
+ 
+    .image-section {
+        padding: 20px;
+        gap: 20px;
+    }
+ 
+    .footer {
+        right: 20px;
+        bottom: 20px;
+    }
+ 
+    .learn-more-btn {
+        padding: 15px 25px;
+        font-size: 0.9rem;
+    }
+}
+ 
+@media (max-width: 480px) {
+    body {
+        padding: 20px 10px;
+    }
+ 
+    .main-title {
+        font-size: 1.2rem;
+    }
+ 
+    .step-item {
+        font-size: 0.7rem;
+    }
+}
