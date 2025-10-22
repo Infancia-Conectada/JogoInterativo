@@ -14,6 +14,17 @@ router.get('/dashboard', function (req, res) {
     res.render('dashboard');
 })
 
+router.get('/quizpasta', function (req, res) {
+    res.render('quizpasta');
+})
+
+router.get('/aulatexto', function (req, res) {
+    res.render('aulatexto');
+})
+
+router.get('/teclasaula', function (req, res) {
+    res.render('teclasaula');
+})
 // Aqui você pode adicionar outras rotas no futuro:
 // const userRoutes = require('./user');
 // const adminRoutes = require('./admin');
