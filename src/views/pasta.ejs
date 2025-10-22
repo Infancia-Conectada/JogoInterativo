@@ -1,0 +1,95 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O que é o monitor ?</title>
+    <link rel="stylesheet" href="css/pasta.css" />
+    <style>
+        /* Botões de navegação no rodapé */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between; /* um botão à esquerda, outro à direita */
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            padding: 0 50px; /* espaço da borda */
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                </div>
+            </div>
+            <h1 class="main-title">Como guardar seu texto dentro de uma pasta?</h1>
+        </header>
+ 
+        <main class="content">
+            <!-- TEXTO SOBRE GABINETE -->
+            <section class="rules-section" aria-labelledby="sec-pasta">
+                <div class="rule-item" data-rule="1">
+                    <div class="rule-text">
+                        <h3 id="sec-pasta"></p>Escreva seu texto no editor (Bloco de Notas, TextEdit, etc).</p>
+&nbsp
+</p>Clique em Salvar como....</p>
+&nbsp
+</p>Escolha a pasta onde quer guardar, dê um nome e salve.</p>
+&nbsp
+</p>Clicar e segurar o botão esquerdo do mouse sobre o texto
+Arrastar até a pasta de destino.</p>
+&nbsp
+</p>Soltar o botão esquerdo para completar a ação.</p>
+&nbsp
+
+</p>Pronto, seu texto está guardado na pasta!</p>
+                        </p>
+                        <p>
+                           
+                        </p>
+                    </div>
+                </div>
+            </section>
+ 
+            <!-- IMAGENS ILUSTRATIVAS -->
+            <aside class="image-section" aria-label="Imagens ilustrativas do pasta">
+                <img src="images/pasta1.png" alt="Gabinete visto de frente" class="image-item" />
+                
+            </aside>
+        </main>
+ 
+        <footer class="footer">
+            <div class="nav-buttons">
+                <button class="learn-more-btn" id="prevPageBtn" type="button">
+                    <span>Página Anterior</span>
+                    <div class="btn-glow"></div>
+                </button>
+ 
+                <button class="learn-more-btn" id="nextPageBtn" type="button">
+                    <span>Próxima Página</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </footer>
+    </div>
+ 
+    <script>
+        // Botão Página Anterior
+        document.getElementById('prevPageBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-anterior.html"; // troque pelo link real
+        });
+ 
+        // Botão Próxima Página
+        document.getElementById('nextPageBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-proxima.html"; // troque pelo link real
+        });
+    </script>
+</body>
+</html>
