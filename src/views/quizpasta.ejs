@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Pastas</title>
+    <link rel="stylesheet" href="css/quizpasta.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                </div>
+            </div>
+            <h1 class="main-title">VAMOS REVISAR?</h1>
+        </header>
+
+        <main class="content">
+            <div class="quiz-section">
+                <h2 class="question">Como criamos uma pasta simples?</h2>
+                
+                <div class="alternatives-grid">
+                    <div class="alternative-box" data-answer="a">
+                        <div class="alternative-label">A</div>
+                        <img src="images/opcaoA.png" alt="Alternativa A">
+                    </div>
+                    
+                    <div class="alternative-box" data-answer="b">
+                        <div class="alternative-label">B</div>
+                        <img src="images/opcaoB.png" alt="Alternativa B">
+
+                    </div>
+                    
+                    <div class="alternative-box correct-answer" data-answer="c">
+                        <div class="alternative-label">C</div>
+                       <img src="images/opcaoC.png" alt="Alternativa c">
+
+                    </div>
+                    
+                    <div class="alternative-box" data-answer="d">
+                        <div class="alternative-label">D</div>
+                       <img src="images/opcaoD.png" alt="Alternativa d">
+
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <button class="nav-btn" id="prevBtn">
+                <span>PÁGINA ANTERIOR</span>
+            </button>
+            
+            <button class="nav-btn primary" id="nextBtn">
+                <span>PRÓXIMA PÁGINA</span>
+                <div class="btn-glow"></div>
+            </button>
+        </footer>
+    </div>
+
+   <!-- Canvas para confetes -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Script com toda a customização -->
+    <script src="js/quizpasta.js"></script>
+
+</body>
+</html>

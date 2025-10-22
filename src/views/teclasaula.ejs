@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O que fazem as teclas especiais?</title>
+    <link rel="stylesheet" href="css/teclasaula.css" />
+    <style>
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            padding: 0 50px; 
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                </div>
+            </div>
+            <h1 class="main-title">Quais são as teclas especiais ?</h1>
+        </header>
+ 
+        <main class="content">
+            
+            <section class="rules-section" aria-labelledby="sec-gabinete">
+                <div class="rule-item" data-rule="1">
+                    <div class="rule-text">
+                        <h3 id="sec-tecladomouse">
+ 
+
+     </p>O 'Space é uma das teclas que mais serão usadas, por permitir o espaço entre as palavras com o simples aperto de um botão.'</p>
+ 
+    &nbsp
+    
+     </p>O 'Enter' é a tecla que envia informação, que vai fazer a mensagem ser enviada e que algo escrito seja pesquisado.</p>
+ 
+    &nbsp
+
+     </p>O 'Delete' apaga o ultimo caracter que foi digitado.</p>
+ 
+    &nbsp
+    </p>O 'CapsLock' permite usar as letras MAIUSCULAS depois que apertar a tecla, voltando para as minusculas quando aperta a tecla de novo</p>
+ 
+    &nbsp
+ 
+    </p>O 'Alt' é mais usado sendo segurado apenas para chamar 'teclas ocultas' como ¹,²,³,£,¢,?,°,₢ . </p>
+    &nbsp
+ 
+    &nbsp
+    </p>O 'Control' é uma tecla que não faz nada sozinha mas quando apertam algumas outras teclas enquanto é segurada faz atalhos para algumas coisas,
+     como: control + c para copiar e control + v para colar.</p>
+    &nbsp
+
+    </p>O 'Shift' quado segurado pode servir para fazer as letras ficarem MAIUSCULAS, e chamar mais 'teclas ocultas' como @, ^,!,#,$,%,<>,: .</p>
+    &nbsp
+
+     </p>E o 'NumLock' que vai permitir que os números do lado direito do teclado também sejam usados de forma facil, e não por suas outras funções.</p>
+       
+                    </div>
+                </div>
+            </section>
+ 
+            
+            <section class="teclas-especiais">
+    <div class="tecla-item">
+        <img src="images/tecla-espaco.jpeg" alt="Tecla de Espaço" />
+        <p>O 'Space' é uma das teclas que mais serão usadas, por permitir o espaço entre as palavras com o simples aperto de um botão.</p>
+    </div>
+
+    <div class="tecla-item">
+        <img src="images/tecla-enter.jpeg" alt="Tecla de Enter" />
+        <p>O 'Enter' é a tecla que envia informação, que vai fazer a mensagem ser enviada e que algo escrito seja pesquisado.</p>
+    </div>
+
+    <div class="tecla-item">
+        <img src="images/tecla-delete.jpeg" alt="Tecla de Delete" />
+        <p>O 'Delete' apaga o último caractere que foi digitado.</p>
+    </div>
+
+    <div class="tecla-item">
+        <img src="images/tecla-capslock.jpeg" alt="Tecla de CapsLock" />
+        <p>O 'CapsLock' permite usar as letras MAIÚSCULAS depois que apertar a tecla, voltando para as minúsculas quando apertar a tecla de novo.</p>
+    </div>
+
+    <div class="tecla-item">
+        <img src="images/tecla-alt.jpeg" alt="Tecla de Alt" />
+        <p>O 'Alt' é usado segurando a tecla para chamar 'teclas ocultas' como ¹,²,³,£,¢,?,°,₢.</p>
+    </div>
+
+    <div class="tecla-item">
+        <img src="images/teclas-control.jpeg" alt="Tecla de Control" />
+        <p>O 'Control' é uma tecla que não faz nada sozinha, mas quando apertada junto com outras serve para atalhos, como: Control + C para copiar.</p>
+    </div>
+
+    <div class="tecla-item">
+        <img src="images/tecla-shift.jpeg" alt="Tecla de Shift" />
+        <p>O 'Shift', quando segurado, faz letras ficarem MAIÚSCULAS e ativa mais 'teclas ocultas' como @, #, $, %, etc.</p>
+    </div>
+
+    <div class="tecla-item">
+        <img src="images/tecla-numlock.png" alt="Tecla de NumLock" />
+        <p>O 'NumLock' permite que os números do lado direito do teclado sejam usados com facilidade.</p>
+    </div>
+</section>
+
+        </main>
+ 
+        <footer class="footer">
+            <div class="nav-buttons">
+                <button class="learn-more-btn" id="prevPageBtn" type="button">
+                    <span>Página Anterior</span>
+                    <div class="btn-glow"></div>
+                </button>
+ 
+                <button class="learn-more-btn" id="nextPageBtn" type="button">
+                    <span>Próxima Página</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </footer>
+    </div>
+ 
+    <script>
+       
+        document.getElementById('prevPageBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-anterior.html"; 
+        });
+ 
+     
+        document.getElementById('nextPageBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-proxima.html"; 
+        });
+    </script>
+</body>
+</html>
+ 
