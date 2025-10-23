@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Mochiy+Pop+One&display=swap');
+
+:root {
+    --fundo-principal: #0F172A;
+    --cor-primaria: #3B82F6;
+    --cor-secundaria: #22D3EE;
+    --cor-destaque: #FACC15;
+    --texto-principal: #F1F5F9;
+    --texto-secundario: #94A3B8;
+    --vidro-fundo: rgba(15, 23, 42, 0.8);
+    --vidro-borda: rgba(241, 245, 249, 0.1);
+}
+
+/* Reset e configurações base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Mochiy Pop One', sans-serif;
+    background: var(--fundo-principal);
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(250, 204, 21, 0.2) 0%, transparent 50%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--texto-principal);
+}
+
+.container {
+    background: var(--vidro-fundo);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 1000px;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--vidro-borda);
+}
+
+/* Header */
+.header {
+    background: var(--vidro-fundo);
+    padding: 30px;
+    text-align: center;
+    border-bottom: 1px solid var(--vidro-borda);
+}
+
+.browser-bar {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.browser-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--cor-destaque);
+}
+
+.main-title {
+    font-family: 'Mochiy Pop One', sans-serif;
+    font-size: 3em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+}
+
+/* Content */
+.content {
+    padding: 40px;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ensino-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Container da imagem */
+.image-container {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    overflow: hidden;
+    animation: fadeInScale 0.8s ease-out;
+}
+
+.ensino-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.image-container {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Container do texto */
+.text-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ensino-text {
+    color: var(--texto-principal);
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1.6;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 20px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 15px;
+    border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.ensino-text.secondary {
+    background: rgba(34, 211, 238, 0.1);
+    border: 2px solid rgba(34, 211, 238, 0.3);
+    font-size: 1.3em;
+}
+
+/* Footer */
+.footer {
+    padding: 30px 40px;
+    background: var(--vidro-fundo);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid var(--vidro-borda);
+}
+
+/* Botão padrão */
+.nav-btn {
+    padding: 18px 35px;
+    border: 2px solid var(--cor-primaria);
+    border-radius: 50px;
+    background: transparent;
+    color: var(--cor-primaria);
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Mochiy Pop One', sans-serif;
+    text-transform: uppercase;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* Botão de próxima página */
+.nav-btn.primary {
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+    color: white;
+    border: none;
+}
+
+.nav-btn.primary:hover {
+    box-shadow: 0 5px 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Efeito de brilho */
+.btn-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+.nav-btn.primary:hover .btn-glow {
+    transform: translate(-50%, -50%) scale(2);
+}
+
+/* Canvas de confetes */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2em;
+    }
+
+    .ensino-text {
+        font-size: 1.2em;
+        padding: 15px;
+    }
+
+    .ensino-text.secondary {
+        font-size: 1.1em;
+    }
+
+    .image-container {
+        max-width: 100%;
+    }
+
+    .content {
+        padding: 30px 20px;
+    }
+
+    .footer {
+        flex-direction: column;
+    }
+
+    .nav-btn {
+        width: 100%;
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 1.5em;
+    }
+
+    .ensino-text {
+        font-size: 1em;
+    }
+
+    .ensino-text.secondary {
+        font-size: 0.95em;
+    }
+}

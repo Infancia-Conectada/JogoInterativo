@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Mochiy+Pop+One&display=swap');
+
+:root {
+    --fundo-principal: #0F172A;
+    --cor-primaria: #3B82F6;
+    --cor-secundaria: #22D3EE;
+    --cor-destaque: #FACC15;
+    --texto-principal: #F1F5F9;
+    --texto-secundario: #94A3B8;
+    --vidro-fundo: rgba(15, 23, 42, 0.8);
+    --vidro-borda: rgba(241, 245, 249, 0.1);
+    --certificate-bg: linear-gradient(135deg, #A8C5E3 0%, #E8D5F2 100%);
+    --certificate-text: #4A3552;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Happy Monkey', sans-serif;
+    background: var(--fundo-principal);
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(250, 204, 21, 0.2) 0%, transparent 50%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.certificate-container {
+    width: 100%;
+    max-width: 1200px;
+    perspective: 1000px;
+}
+
+.certificate-card {
+    background: var(--certificate-bg);
+    border-radius: 20px;
+    padding: 60px 80px;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        inset 0 0 100px rgba(255, 255, 255, 0.1);
+    position: relative;
+    border: 8px solid white;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Decorações */
+.decoration {
+    position: absolute;
+    z-index: 10;
+}
+
+.decoration img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.plane-left {
+    top: 30px;
+    left: 40px;
+    width: 140px;
+    height: 100px;
+}
+
+.rocket-right {
+    top: 30px;
+    right: 40px;
+    width: 120px;
+    height: 140px;
+}
+
+.blocks-left {
+    bottom: 40px;
+    left: 40px;
+    width: 180px;
+    height: 600px;
+}
+
+.blocks-right {
+    bottom: 40px;
+    right: 40px;
+    width: 180px;
+    height: 600px;
+}
+
+
+/* Conteúdo do Certificado */
+.certificate-content {
+    position: relative;
+    z-index: 20;
+    text-align: center;
+    color: var(--certificate-text);
+}
+
+.certificate-title {
+    font-family: 'Mochiy Pop One', sans-serif;
+    font-size: 4em;
+    color: #4A3552;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.certificate-subtitle {
+    font-size: 1.1em;
+    color: #5A4562;
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+/* Seção do Nome do Aluno */
+.student-name-section {
+    margin-bottom: 50px;
+}
+
+.name-line {
+    border-bottom: 2px solid #4A3552;
+    padding-bottom: 10px;
+    margin: 0 auto 10px;
+    max-width: 600px;
+}
+
+.name-line span {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #4A3552;
+}
+
+.name-label {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #6A5572;
+    margin-top: 5px;
+}
+
+/* Texto do Certificado */
+.certificate-text {
+    margin-bottom: 60px;
+    font-size: 1.2em;
+    line-height: 2;
+}
+
+.certificate-text p {
+    margin: 10px 0;
+}
+
+
+.school-line span {
+    font-weight: bold;
+    color: #4A3552;
+}
+
+/* Assinaturas */
+.signatures {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 120px;
+    gap: 40px;
+}
+
+.signature-block {
+    flex: 1;
+    text-align: center;
+}
+
+.signature-line {
+    border-bottom: 2px solid #4A3552;
+    margin-bottom: 8px;
+    padding-bottom: 30px;
+}
+
+.signature-label {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #6A5572;
+}
+
+.date-block .date-line {
+    border-bottom: 2px solid #4A3552;
+    padding-bottom: px;
+    margin-bottom: 8px;
+}
+
+.date-line span {
+    font-size: 1em;
+    color: #4A3552;
+}
+
+/* Botão de Download */
+.download-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    z-index: 30;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .certificate-card {
+        padding: 50px 60px;
+    }
+
+    .certificate-title {
+        font-size: 3em;
+    }
+
+    .plane-left, .rocket-right {
+        width: 100px;
+        height: 80px;
+    }
+
+    .blocks-left, .blocks-right {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+@media (max-width: 768px) {
+    .certificate-card {
+        padding: 40px 30px;
+    }
+
+    .certificate-title {
+        font-size: 2.5em;
+    }
+
+    .certificate-subtitle {
+        font-size: 1em;
+    }
+
+    .certificate-text {
+        font-size: 1em;
+    }
+
+    .school-line {
+        min-width: 280px;
+    }
+
+    .signatures {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .download-btn {
+        position: static;
+        margin: 30px auto 0;
+    }
+
+    .decoration {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .certificate-title {
+        font-size: 2em;
+        letter-spacing: 2px;
+    }
+
+    .name-line {
+        max-width: 100%;
+    }
+
+    .school-line {
+        min-width: 200px;
+    }
+}

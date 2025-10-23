@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - monitor</title>
+    <link rel="stylesheet" href="css/quizmonitor.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                </div>
+            </div>
+            <h1 class="main-title">VAMOS REVISAR?</h1>
+        </header>
+
+        <main class="content">
+            <div class="quiz-section">
+                <h2 class="question">QUAL DESSES É O MONITOR?</h2>
+                
+                <div class="alternatives-grid">
+                    <div class="alternative-box" data-answer="a">
+                        <div class="alternative-label">A</div>
+                        <img src="img/gabinete.png" alt="Alternativa A" class="alternative-image">
+                    </div>
+                    
+                    <div class="alternative-box" data-answer="b">
+                        <div class="alternative-label">B</div>
+                        <img src="img/monitor3.png" alt="Alternativa B" class="alternative-image">
+                    </div>
+                    
+                    <div class="alternative-box correct-answer" data-answer="c">
+                        <div class="alternative-label">C</div>
+                        <img src="img/mouse.png" alt="Alternativa C" class="alternative-image">
+                    </div>
+                    
+                    <div class="alternative-box" data-answer="d">
+                        <div class="alternative-label">D</div>
+                        <img src="img/teclado.png" alt="Alternativa D" class="alternative-image">
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <button class="nav-btn" id="prevBtn">
+                <span>PÁGINA ANTERIOR</span>
+            </button>
+            
+            <button class="nav-btn primary" id="nextBtn">
+                <span>PRÓXIMA PÁGINA</span>
+                <div class="btn-glow"></div>
+            </button>
+        </footer>
+    </div>
+
+    <!-- Canvas para confetes -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="quizmonitor.ejs"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Nome</title>
+    <link rel="stylesheet" href="css/nome.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                </div>
+            </div>
+            <h1 class="main-title">QUAL SEU NOME?</h1>
+        </header>
+
+        <main class="content">
+            <div class="quiz-section">
+                <input type="text" id="nomeInput" class="nome-input" placeholder="Digite seu nome aqui">
+            </div>
+        </main>
+
+        <footer class="footer">
+            <button class="nav-btn" id="prevBtn">
+                <span>PÁGINA ANTERIOR</span>
+            </button>
+            
+            <button class="nav-btn primary" id="nextBtn">
+                <span>PRÓXIMA PÁGINA</span>
+                <div class="btn-glow"></div>
+            </button>
+        </footer>
+    </div>
+
+    <!-- Canvas para confetes -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="quiznome.js"></script>
+</body>
+</html>

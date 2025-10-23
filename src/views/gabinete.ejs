@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O que é o Gabinete (CPU)?</title>
+    <link rel="stylesheet" href="css/gabinete.css" />
+    <style>
+        /* Botões de navegação no rodapé */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between; /* um botão à esquerda, outro à direita */
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            padding: 0 50px; /* espaço da borda */
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                </div>
+            </div>
+            <h1 class="main-title">O QUE É O GABINETE (CPU)?</h1>
+        </header>
+
+        <main class="content">
+            <!-- TEXTO SOBRE GABINETE -->
+            <section class="rules-section" aria-labelledby="sec-gabinete">
+                <div class="rule-item" data-rule="1">
+                    <div class="rule-text">
+                        <h3 id="sec-gabinete"> Muitas pessoas chamam o gabinete de “CPU”, mas na verdade a CPU é apenas
+                            o processador, que fica dentro dele.
+                            O gabinete protege os componentes,
+                            organiza as conexões e permite que você ligue cabos de energia, monitor,
+                            teclado, mouse e internet.
+                           
+                            O gabinete é a “caixa” do computador. Dentro dele ficam
+                            as principais peças: placa-mãe, processador (CPU),
+                            memória RAM, HD/SSD e a fonte de energia.
+                        </p>
+                        <p>
+                           
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IMAGENS ILUSTRATIVAS -->
+            <aside class="image-section" aria-label="Imagens ilustrativas do gabinete">
+                <img src="img/gamer.png" alt="Gabinete visto de frente" class="image-item" />
+                <img src="img/gabinet.png" alt="Outro modelo de gabinete" class="image-item" />
+            </aside>
+        </main>
+
+        <footer class="footer">
+            <div class="nav-buttons">
+                <button class="learn-more-btn" id="prevPageBtn" type="button">
+                    <span>Página Anterior</span>
+                    <div class="btn-glow"></div>
+                </button>
+
+                <button class="learn-more-btn" id="nextPageBtn" type="button">
+                    <span>Próxima Página</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Botão Página Anterior
+        document.getElementById('prevPageBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-anterior.html"; // troque pelo link real
+        });
+
+        // Botão Próxima Página
+        document.getElementById('nextPageBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-proxima.html"; // troque pelo link real
+        });
+    </script>
+</body>
+</html>

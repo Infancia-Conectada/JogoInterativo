@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Mochiy+Pop+One&display=swap');
+
+:root {
+    --fundo-principal: #0F172A;
+    --cor-primaria: #3B82F6;
+    --cor-secundaria: #22D3EE;
+    --cor-destaque: #FACC15;
+    --texto-principal: #F1F5F9;
+    --texto-secundario: #94A3B8;
+    --vidro-fundo: rgba(15, 23, 42, 0.8);
+    --vidro-borda: rgba(241, 245, 249, 0.1);
+    --glass-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    --border-radius: 35px;
+    --border-radius-small: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset e configurações básicas */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Mochiy Pop One', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto-principal);
+    line-height: 1.6;
+    background: var(--fundo-principal);
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(250, 204, 21, 0.2) 0%, transparent 50%);
+}
+
+/* Efeito de ondas no fundo */
+.background-waves {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: wave 8s ease-in-out infinite;
+}
+
+.wave:nth-child(1) {
+    top: -50%;
+    left: -50%;
+    animation-delay: 0s;
+}
+
+.wave:nth-child(2) {
+    top: -30%;
+    right: -60%;
+    animation-delay: 2s;
+    transform: scale(0.8);
+}
+
+.wave:nth-child(3) {
+    bottom: -40%;
+    left: -40%;
+    animation-delay: 4s;
+    transform: scale(1.2);
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.1) rotate(180deg);
+        opacity: 0.1;
+    }
+}
+
+/* Cartão principal com glassmorfismo */
+.main-card {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 500px;
+    min-height: 600px;
+    background: var(--vidro-fundo);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--vidro-borda);
+    box-shadow: 
+        var(--glass-shadow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.main-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.05) 0%, 
+        rgba(34, 211, 238, 0.02) 100%);
+    pointer-events: none;
+    border-radius: var(--border-radius);
+}
+
+/* Título principal */
+.game-title {
+    font-family: 'Mochiy Pop One', sans-serif;
+    font-size: 58px;
+    font-weight: 900;
+    color: var(--cor-primaria);
+    margin-bottom: 60px;
+    text-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+}
+
+.title-line-1 {
+    display: block;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.title-line-2 {
+    display: block;
+    font-size: 0.6em;
+    font-weight: 800;
+    margin-top: 15px;
+    color: var(--cor-primaria);
+}
+
+/* Botão de jogar */
+.play-button {
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: var(--texto-principal);
+    font-family: 'Mochiy Pop One', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 900;
+    padding: 25px 80px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 
+        0 15px 30px rgba(59, 130, 246, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.play-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.play-button:hover {
+    background: linear-gradient(135deg, var(--cor-secundaria) 0%, var(--cor-primaria) 100%);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 20px 40px rgba(59, 130, 246, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-color: var(--cor-primaria);
+}
+
+.play-button:hover::before {
+    left: 100%;
+}
+
+.play-button:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+}
+
+.play-button:focus {
+    outline: 2px solid var(--cor-primaria);
+    outline-offset: 4px;
+}
+
+/* Efeitos de partículas flutuantes */
+.floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    animation: float-particle 6s linear infinite;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.particle:nth-child(1) {
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+    left: 40%;
+    animation-delay: 1s;
+}
+
+.particle:nth-child(3) {
+    left: 60%;
+    animation-delay: 2s;
+}
+
+.particle:nth-child(4) {
+    left: 80%;
+    animation-delay: 3s;
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Animações personalizadas */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .main-card {
+        max-width: 450px;
+        min-height: 550px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-card {
+        width: 95%;
+        padding: 60px 30px;
+        min-height: 500px;
+        border-radius: 25px;
+    }
+
+    .play-button {
+        padding: 20px 50px;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .game-title {
+        font-size: clamp(1.8rem, 5vw, 3.5rem);
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-card {
+        padding: 40px 25px;
+        min-height: 450px;
+        border-radius: var(--border-radius-small);
+    }
+
+    .play-button {
+        padding: 18px 40px;
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+    }
+
+    .game-title {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
+        margin-bottom: 30px;
+    }
+
+    .particle {
+        display: none;
+    }
+}
+
+/* Estados de foco para acessibilidade */
+.main-card:focus-within {
+    border-color: var(--cor-primaria);
+    box-shadow: 
+        var(--glass-shadow),
+        0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+/* Efeito de entrada da página */
+.main-card {
+    animation: slideIn 0.8s ease-out;
+}
+
+.floating-particles {
+    animation: slideIn 1s ease-out 0.3s both;
+}
+
+/* Efeito de brilho no cartão principal */
+.main-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255,255,255,0.8), 
+        transparent);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}

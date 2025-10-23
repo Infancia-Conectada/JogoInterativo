@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado de Conclusão</title>
+    <link rel="stylesheet" href="css/certificado.css">
+</head>
+<body>
+    <div class="certificate-container">
+        <div class="certificate-card">
+            <!-- Decorações -->
+            <div class="decoration plane-left">
+                <img src="/img/imagens.png" alt="Avião">
+            </div>
+            <div class="decoration rocket-right">
+                <img src="/img/foguete.png" alt="Foguete">
+            </div>
+            <div class="decoration blocks-left">
+                <img src="/img/blocoss.png" alt="Blocos">
+            </div>
+            <div class="decoration blocks-right">
+                <img src="/img/blocoss.png" alt="Blocos">
+            </div>
+
+            <!-- Conteúdo do Certificado -->
+            <div class="certificate-content">
+                <h1 class="certificate-title">CERTIFICADO</h1>
+                
+                <p class="certificate-subtitle">
+                    Que esta seja apenas a primeira de muitas conquistas em sua vida.
+                </p>
+
+                <div class="student-name-section">
+                    <div class="name-line">
+                        <span id="studentName">___________________________________</span>
+                    </div>
+                    <p class="name-label">NOME DO ALUNO</p>
+                </div>
+
+                <div class="certificate-text">
+                    <p>Você concluiu o Quiz Conectado</p>
+                    <p>e recebe este certificado em reconhecimento ao seu desempenho.</p>
+                </div>
+
+                <div class="signatures">
+                    <div class="signature-block">
+                        <div class="signature-line"></div>
+                        <p class="signature-label">PROFESSORA</p>
+                    </div>
+
+                    <div class="signature-block date-block">
+                        <div class="date-line">
+                            <span>____/____/____</span>
+                        </div>
+                    </div>
+
+                    <div class="signature-block">
+                        <div class="signature-line"></div>
+                        <p class="signature-label">DIRETOR(A)</p>
+                    </div>
+                </div>
+            </div>
+             
+            <p>
+            
+            <div style="text-align: center; margin-top: 40px;">
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>Reconhecimento simbólico, sem valor oficial – mas com muito carinho!</p>
+</div>
+
+
+            <!-- Botão de Download -->
+            <button class="download-btn" id="downloadBtn" onclick="downloadCertificate()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Baixar Certificado
+            </button>
+        </div>
+    </div>
+
+    <script src="js/certificado.js"></script>
+</body>
+</html>

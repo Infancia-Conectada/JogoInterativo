@@ -2,15 +2,15 @@ const express = require('express');
 const path = require('path');
 
 // Importar rotas
-const routes = require('./src/routes');
+const routes = require('./src/routes'); // usa o router que inclui /homejogo
 
 const app = express();
 
-// Configuração do EJS como template engine
+// Configuração do EJS como template engine (para páginas que usam EJS)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
-// Middleware para arquivos estáticos
+// Middleware para arquivos estáticos (CSS, JS, imagens)
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 // Middleware para parsing de formulários

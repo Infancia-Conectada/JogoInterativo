@@ -1,0 +1,298 @@
+/* ========================================
+   FONTES E VARIÁVEIS DE CORES
+======================================== */
+ 
+/* Importando fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Mochiy+Pop+One&display=swap');
+ 
+/* Paleta de cores e variáveis reutilizáveis */
+:root {
+    --fundo-principal: #0F172A;
+    --cor-primaria: #3B82F6;
+    --cor-secundaria: #22D3EE;
+    --cor-destaque: #FACC15;
+    --texto-principal: #F1F5F9;
+    --texto-secundario: #94A3B8;
+    --vidro-fundo: rgba(15, 23, 42, 0.8);
+    --vidro-borda: rgba(241, 245, 249, 0.1);
+}
+ 
+/* ========================================
+   RESET BÁSICO
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+/* ========================================
+   CORPO DA PÁGINA
+======================================== */
+body {
+    font-family: 'Mochiy Pop One', sans-serif;
+    background: var(--fundo-principal);
+    /* Efeito com degradê radial colorido */
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(250, 204, 21, 0.2) 0%, transparent 50%);
+    min-height: 100vh;
+    color: var(--texto-principal);
+    overflow-x: hidden;
+}
+ 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+ 
+/* ========================================
+   CABEÇALHO E TÍTULO
+======================================== */
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+ 
+/* Barra superior (imitando navegador) */
+.browser-bar {
+    background: var(--vidro-fundo);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--vidro-borda);
+    border-radius: 12px 12px 0 0;
+    padding: 15px;
+    margin-bottom: -1px;
+}
+ 
+/* Bolinhas decorativas */
+.browser-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+}
+ 
+.dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+ 
+.dot.orange { background: #F59E0B; }
+ 
+.dot:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px currentColor;
+}
+ 
+/* Título principal */
+.main-title {
+    background: var(--vidro-fundo);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--vidro-borda);
+    border-radius: 0 0 12px 12px;
+    padding: 20px;
+    font-size: clamp(1rem, 4vw, 2.5rem);
+    font-weight: 900;
+    font-family: 'Mochiy Pop One', sans-serif;
+    background: linear-gradient(45deg, var(--cor-primaria), var(--cor-secundaria));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+ 
+/* ========================================
+   CONTEÚDO PRINCIPAL
+======================================== */
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+ 
+/* ========================================
+   BLOCO DAS REGRAS
+======================================== */
+.rules-section {
+    background: var(--vidro-fundo);
+    backdrop-filter: blur(15px);
+    border: 3px solid var(--vidro-borda);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+ 
+.rule-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+ 
+.rule-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(34, 211, 238, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+ 
+.rule-item:hover::before {
+    opacity: 1;
+}
+ 
+.rule-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+}
+ 
+.rule-text h3 {
+    color: var(--texto-principal);
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-family: "Mochiy Pop One", sans-serif;
+    text-transform: uppercase;
+}
+ 
+.rule-text p {
+    color: var(--texto-secundario);
+    line-height: 1.8;
+    font-size: 1.0rem;
+    font-family: "Mochiy Pop One", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+ 
+/* ========================================
+   SEÇÃO DE IMAGENS
+======================================== */
+.image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* espaço entre imagens */
+    background: var(--vidro-fundo);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--vidro-borda);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+ 
+.image-item {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+ 
+/* ========================================
+   RODAPÉ E BOTÃO
+======================================== */
+.footer {
+    position: fixed;   /* fixa o rodapé na tela */
+    bottom: 30px;      /* distância da borda inferior */
+    right: 50px;       /* distância da borda direita */
+    margin: 0;
+    text-align: right;
+    z-index: 1000;     /* garante que fique por cima de tudo */
+}
+ 
+.learn-more-btn {
+    position: relative;
+    background: linear-gradient(45deg, var(--cor-primaria), var(--cor-secundaria));
+    border: none;
+    padding: 18px 35px;
+    border-radius: 30px;
+    color: var(--texto-principal);
+    font-size: 1.2rem;
+    font-weight: 800;
+    font-family: 'Mochiy Pop One', cursive, sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+ 
+.learn-more-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+}
+ 
+/* Efeito de brilho passando no botão */
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+ 
+.learn-more-btn:hover .btn-glow {
+    left: 100%;
+}
+ 
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+@media (max-width: 768px) {
+    .content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+   
+    .image-section {
+        flex-direction: column; /* imagens ficam uma embaixo da outra */
+    }
+   
+    .main-title {
+        font-size: 2rem;
+        padding: 20px;
+    }
+}
+ 
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+   
+    .main-title {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+   
+    .rule-text p {
+        font-size: 1rem;
+    }
+}
+/* Ajuste das imagens do gabinete */
+.image-item {
+    max-width: 250px;   /* largura máxima da imagem */
+    height: auto;       /* mantém a proporção */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    object-fit: contain; /* garante que não distorça */
+}
+ 

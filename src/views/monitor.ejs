@@ -1,0 +1,85 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O que é o monitor ?</title>
+    <link rel="stylesheet" href="css/monitor.css" />
+    <style>
+        /* Botões de navegação no rodapé */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between; /* um botão à esquerda, outro à direita */
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            padding: 0 50px; /* espaço da borda */
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                </div>
+            </div>
+            <h1 class="main-title">O QUE É o monitor?</h1>
+        </header>
+ 
+        <main class="content">
+            <!-- TEXTO SOBRE GABINETE -->
+            <section class="rules-section" aria-labelledby="sec-monitor">
+                <div class="rule-item" data-rule="1">
+                    <div class="rule-text">
+                        <h3 id="sec-monitor"> Monitor é a tela do computador.
+É onde você vê as imagens, textos e vídeos quando está usando o aparelho.
+Sem o monitor, você não conseguiria ver nada do que está fazendo no computador.
+                        </p>
+                        <p>
+                           
+                        </p>
+                    </div>
+                </div>
+            </section>
+ 
+            <!-- IMAGENS ILUSTRATIVAS -->
+            <aside class="image-section" aria-label="Imagens ilustrativas do monitor">
+                <img src="img/monitor2.png" alt="Gabinete visto de frente" class="image-item" />
+                <img src="img/monitor3.png" alt="Outro modelo de gabinete" class="image-item" />
+            </aside>
+        </main>
+ 
+        <footer class="footer">
+            <div class="nav-buttons">
+                <button class="learn-more-btn" id="prevPageBtn" type="button">
+                    <span>Página Anterior</span>
+                    <div class="btn-glow"></div>
+                </button>
+ 
+                <button class="learn-more-btn" id="nextPageBtn" type="button">
+                    <span>Próxima Página</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </footer>
+    </div>
+ 
+    <script>
+        // Botão Página Anterior
+        document.getElementById('prevPageBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-anterior.html"; // troque pelo link real
+        });
+ 
+        // Botão Próxima Página
+        document.getElementById('nextPageBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-proxima.html"; // troque pelo link real
+        });
+    </script>
+</body>
+</html>
