@@ -5,97 +5,50 @@ const router = express.Router();
 router.get('/dashboard', function (req, res) {
     res.render('dashboard');
 })
-router.get('/monitor', (req, res) => {
-  // Renderiza o arquivo src/views/monitor.ejs
-  res.render('monitor');
+router.get('/inicio', (req, res) => {
+  // Renderiza o arquivo src/views/inicio.ejs
+  res.render('inicio');
 });
 
-router.get('/homejogo', (req, res) => {
+router.get('/intro', (req, res) => {
   // Renderiza o arquivo src/views/homejogo.ejs
-  res.render('homejogo');
+  res.render('intro');
 });
 
-router.get('/quizgabinete', (req, res) => {
+router.get('/explicacao', (req, res) => {
   // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('quizgabinete');
+  res.render('explicacao');
 });
 
-router.get('/nome', (req, res) => {
+router.get('/explicacao2', (req, res) => {
   // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('nome');
+  res.render('explicacao2');
 });
 
-router.get('/parabens1', (req, res) => {
+router.get('/quiz', (req, res) => {
   // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('parabens1');
+  res.render('quiz');
 });
 
-router.get('/parabens2', (req, res) => {
+router.get('/parabens', (req, res) => {
   // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('parabens2');
+  res.render('parabens');
 });
 
-router.get('/gerarCertificado', (req, res) => {
+router.get('/parabensFinal', (req, res) => {
   // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('gerarCertificado');
+  res.render('parabensFinal');
 });
 
-router.get('/Certificado', (req, res) => {
+router.get('/certificado', (req, res) => {
   // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('Certificado');
-})
+  res.render('certificado');
+});
 
 router.get('/introducao', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
+  // Renderiza o arquivo src/views/homejogo.ejs
   res.render('introducao');
-})
-
-router.get('/introMonitor', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('introMonitor');
-})
-
-router.get('/quizMonitor', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('quizMonitor');
-})
-
-router.get('/tecladomouse', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('tecladomouse');
-})
-
-
-router.get('/introtecladomouse', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('introtecladomouse');
-})
-
-
-router.get('/introgabinete', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('introgabinete');
-})
-
-router.get('/gabinete', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('gabinete');
-})
-
-router.get('/quiztecladomouse', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('quiztecladomouse');
-})
-
-router.get('/introCriarPasta', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('introCriarPasta');
-})
-
-router.get('/quiztecladomouse', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('quiztecladomouse');
-})
+});
 
 // Aqui você pode adicionar outras rotas no futuro:
 // const userRoutes = require('./user');
