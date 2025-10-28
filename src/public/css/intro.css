@@ -18,6 +18,15 @@
     box-sizing: border-box;
 }
 
+/* ===== CORREÇÃO: Remove scroll completamente ===== */
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* ✅ Sem scroll vertical/horizontal */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 body {
     font-family: 'Mochiy Pop One', sans-serif;
     background: var(--fundo-principal);
@@ -25,36 +34,43 @@ body {
         radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(250, 204, 21, 0.2) 0%, transparent 50%);
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: clamp(10px, 2vw, 20px); /* ✅ Padding responsivo */
     color: var(--texto-principal);
+    position: relative;
 }
 
 .container {
     background: var(--vidro-fundo);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     max-width: 1000px;
-    width: 100%;
+    width: min(95vw, 1000px); /* ✅ Responsivo */
+    max-height: 95vh; /* ✅ Nunca ultrapassa a altura da tela */
     overflow: hidden;
     border: 1px solid var(--vidro-borda);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
 }
 
 /* Header */
 .header {
     background: var(--vidro-fundo);
-    padding: 30px;
+    padding: clamp(15px, 3vh, 30px) clamp(15px, 3vw, 30px); /* ✅ Padding responsivo */
     text-align: center;
     border-bottom: 1px solid var(--vidro-borda);
+    flex-shrink: 0; /* ✅ Não encolhe */
 }
 
 .browser-bar {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 20px;
+    margin-bottom: clamp(10px, 2vh, 20px);
 }
 
 .browser-dots {
@@ -71,7 +87,7 @@ body {
 
 .main-title {
     font-family: 'Mochiy Pop One', sans-serif;
-    font-size: 3em;
+    font-size: clamp(1.5rem, 4vw, 3rem); /* ✅ Tamanho responsivo */
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -80,46 +96,114 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+    line-height: 1.2;
 }
 
 /* Content */
 .content {
-    padding: 40px;
-    min-height: 500px;
+    padding: clamp(20px, 4vh, 40px) clamp(20px, 4vw, 40px); /* ✅ Padding responsivo */
+    flex: 1; /* ✅ Ocupa espaço disponível */
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-y: auto; /* ✅ Scroll interno apenas se necessário */
+    overflow-x: hidden;
+}
+
+/* ✅ Estilo da scrollbar (se aparecer) */
+.content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: var(--cor-primaria);
+    border-radius: 10px;
 }
 
 .ensino-section {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: clamp(20px, 4vh, 40px); /* ✅ Gap responsivo */
     align-items: center;
 }
 
 /* Container da imagem */
 .image-container {
     width: 100%;
-    max-width: 600px;
+    max-width: min(600px, 80vw); /* ✅ Responsivo */
     border-radius: 20px;
-    overflow: hidden;
+    overflow: visible; /* ✅ Permite brilho fora da imagem */
     animation: fadeInScale 0.8s ease-out;
+    position: relative;
+    filter: drop-shadow(0 0 25px rgba(250, 204, 21, 0.9))
+            drop-shadow(0 0 50px rgba(250, 204, 21, 0.7))
+            drop-shadow(0 0 75px rgba(250, 204, 21, 0.5))
+            drop-shadow(0 0 100px rgba(59, 130, 246, 0.4));
+    animation: fadeInScale 0.8s ease-out, treasureGlow 2s ease-in-out infinite;
+}
+
+/* Brilho animado do tesouro que segue o contorno */
+.image-container::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    border-radius: 20px;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(250, 204, 21, 0.6),
+        transparent,
+        rgba(59, 130, 246, 0.4),
+        transparent,
+        rgba(34, 211, 238, 0.4),
+        transparent
+    );
+    background-size: 400% 400%;
+    animation: treasureShine 3s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0.8;
+}
+
+@keyframes treasureGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 25px rgba(250, 204, 21, 0.9))
+                drop-shadow(0 0 50px rgba(250, 204, 21, 0.7))
+                drop-shadow(0 0 75px rgba(250, 204, 21, 0.5))
+                drop-shadow(0 0 100px rgba(59, 130, 246, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 35px rgba(250, 204, 21, 1))
+                drop-shadow(0 0 70px rgba(250, 204, 21, 0.9))
+                drop-shadow(0 0 105px rgba(250, 204, 21, 0.7))
+                drop-shadow(0 0 140px rgba(59, 130, 246, 0.6));
+    }
+}
+
+@keyframes treasureShine {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 400% 50%;
+    }
 }
 
 .ensino-image {
     width: 100%;
-    height: 100%;
+    height: auto; /* ✅ Mantém proporção */
     object-fit: cover;
     display: block;
-}
-
-.image-container {
-    width: 100%;
-    height: auto;
-    border-radius: 20px;
-    overflow: hidden;
 }
 
 @keyframes fadeInScale {
@@ -138,7 +222,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: clamp(15px, 3vh, 25px); /* ✅ Gap responsivo */
     animation: fadeInUp 1s ease-out 0.3s both;
 }
 
@@ -155,12 +239,12 @@ body {
 
 .ensino-text {
     color: var(--texto-principal);
-    font-size: 1.5em;
+    font-size: clamp(1rem, 2.2vw, 1.5rem); /* ✅ Tamanho responsivo */
     font-weight: bold;
     line-height: 1.6;
     text-transform: uppercase;
     text-align: center;
-    padding: 20px;
+    padding: clamp(12px, 2.5vh, 20px); /* ✅ Padding responsivo */
     background: rgba(59, 130, 246, 0.1);
     border-radius: 15px;
     border: 2px solid rgba(59, 130, 246, 0.3);
@@ -169,27 +253,28 @@ body {
 .ensino-text.secondary {
     background: rgba(34, 211, 238, 0.1);
     border: 2px solid rgba(34, 211, 238, 0.3);
-    font-size: 1.3em;
+    font-size: clamp(0.9rem, 2vw, 1.3rem); /* ✅ Tamanho responsivo */
 }
 
 /* Footer */
 .footer {
-    padding: 30px 40px;
+    padding: clamp(15px, 3vh, 30px) clamp(20px, 4vw, 40px); /* ✅ Padding responsivo */
     background: var(--vidro-fundo);
     display: flex;
     justify-content: space-between;
     gap: 20px;
     border-top: 1px solid var(--vidro-borda);
+    flex-shrink: 0; /* ✅ Não encolhe */
 }
 
 /* Botão padrão */
 .nav-btn {
-    padding: 18px 35px;
+    padding: clamp(12px, 2vh, 18px) clamp(20px, 4vw, 35px); /* ✅ Padding responsivo */
     border: 2px solid var(--cor-primaria);
     border-radius: 50px;
     background: transparent;
     color: var(--cor-primaria);
-    font-size: 1.5em;
+    font-size: clamp(1rem, 2vw, 1.5rem); /* ✅ Tamanho responsivo */
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -243,19 +328,73 @@ body {
     z-index: 9999;
 }
 
-/* Responsive */
+/* ===== ESCALAS POR ALTURA (garante que caiba sem scroll) ===== */
+@media (max-height: 900px) {
+    .container { transform: scale(0.98); }
+}
+
+@media (max-height: 800px) {
+    .container { transform: scale(0.94); }
+}
+
+@media (max-height: 700px) {
+    .container { transform: scale(0.88); }
+}
+
+@media (max-height: 620px) {
+    .container { transform: scale(0.82); }
+}
+
+@media (max-height: 540px) {
+    .container { transform: scale(0.75); }
+}
+
+/* ===== AJUSTES PARA NOTEBOOKS (769px - 1366px) ===== */
+@media (min-width: 769px) and (max-width: 1366px) {
+    .container {
+        width: min(90vw, 950px);
+    }
+    
+    .main-title {
+        font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+    }
+    
+    .ensino-text {
+        font-size: clamp(0.95rem, 2vw, 1.3rem);
+    }
+    
+    .ensino-text.secondary {
+        font-size: clamp(0.88rem, 1.8vw, 1.15rem);
+    }
+}
+
+/* ===== NOTEBOOKS PEQUENOS (como 13" - 1366x768) ===== */
+@media (min-width: 769px) and (max-width: 1366px) and (max-height: 800px) {
+    .container {
+        transform: scale(0.92);
+    }
+}
+
+/* ===== MONITORES GRANDES (Full HD+) ===== */
+@media (min-width: 1367px) and (min-height: 900px) {
+    .container {
+        width: min(92vw, 1050px);
+    }
+}
+
+/* ===== TABLETS E MOBILE ===== */
 @media (max-width: 768px) {
     .main-title {
-        font-size: 2em;
+        font-size: clamp(1.2rem, 5vw, 2rem);
     }
 
     .ensino-text {
-        font-size: 1.2em;
+        font-size: clamp(0.9rem, 3vw, 1.2rem);
         padding: 15px;
     }
 
     .ensino-text.secondary {
-        font-size: 1.1em;
+        font-size: clamp(0.85rem, 2.8vw, 1.1rem);
     }
 
     .image-container {
@@ -263,7 +402,7 @@ body {
     }
 
     .content {
-        padding: 30px 20px;
+        padding: clamp(15px, 3vh, 30px) clamp(15px, 3vw, 20px);
     }
 
     .footer {
@@ -272,20 +411,29 @@ body {
 
     .nav-btn {
         width: 100%;
-        font-size: 1.3em;
+        font-size: clamp(0.95rem, 3.5vw, 1.3rem);
     }
 }
 
 @media (max-width: 480px) {
     .main-title {
-        font-size: 1.5em;
+        font-size: clamp(1rem, 6vw, 1.5rem);
     }
 
     .ensino-text {
-        font-size: 1em;
+        font-size: clamp(0.8rem, 3.5vw, 1rem);
     }
 
     .ensino-text.secondary {
-        font-size: 0.95em;
+        font-size: clamp(0.75rem, 3.2vw, 0.95rem);
     }
+    
+    .container {
+        max-height: 98vh;
+    }
+}
+
+/* ===== PROTEÇÃO CONTRA OVERFLOW ===== */
+html, body {
+    overflow-x: hidden;
 }
