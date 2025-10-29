@@ -1,8 +1,14 @@
+// Carregar variáveis de ambiente
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 
 // Importar rotas
 const routes = require('./src/routes'); // usa o router que inclui /homejogo
+
+// Importar configuração do banco de dados
+const database = require('./src/config/database');
 
 const app = express();
 
@@ -29,9 +35,14 @@ app.use((req, res) => {
 });
 
 // Inicializar servidor
-app.listen(3000, () => {
-    console.log(`Servidor rodando na porta 3000`);
-    console.log(`Acesse: http://localhost:3000`);
+const PORT = process.env.APP_PORT || 3000;
+
+app.listen(PORT, async () => {
+    console.log(`🚀 Servidor rodando na porta ${PORT}`);
+    console.log(`🌐 Acesse: http://localhost:${PORT}`);
+    
+    // Testar conexão com banco de dados
+    await database.testConnection();
 });
 
 module.exports = app;
