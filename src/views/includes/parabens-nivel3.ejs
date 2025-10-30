@@ -1,0 +1,107 @@
+<div class="parabens-overlay">
+    <div class="parabens-container">
+        <header class="parabens-header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="parabens-content">
+            <div class="parabens-section">
+                <p class="parabens-text">
+                    PARABÉNS!<br>
+                    VOCÊ AVANÇOU PARA O NÍVEL 3!<br>
+                    VOCÊ JÁ É O MESTRE DA TECNOLOGIA!!!
+                </p>
+                
+                <div class="celebration-icons">
+                    🏆 🌟 💎 🎯 ⚡
+                </div>
+            </div>
+        </main>
+
+        <footer class="parabens-footer">
+            <button class="nav-btn primary" onclick="continuarQuiz()">
+                <span>CONTINUAR QUIZ</span>
+                <div class="btn-glow"></div>
+            </button>
+        </footer>
+    </div>
+</div>
+
+<style>
+.parabens-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.parabens-container {
+    background: var(--vidro-fundo);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 90%;
+    overflow: hidden;
+    border: 1px solid var(--vidro-borda);
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.parabens-header {
+    background: var(--vidro-fundo);
+    padding: 20px;
+    border-bottom: 1px solid var(--vidro-borda);
+}
+
+.parabens-content {
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.parabens-text {
+    color: var(--texto-principal);
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #FFD700, #FF6B6B, #4ECDC4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.celebration-icons {
+    font-size: 2.5em;
+    margin: 20px 0;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.parabens-footer {
+    padding: 20px 30px;
+    background: var(--vidro-fundo);
+    text-align: center;
+    border-top: 1px solid var(--vidro-borda);
+}
+</style>
