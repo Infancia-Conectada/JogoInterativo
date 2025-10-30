@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
+    <title><%= title || 'Quiz' %></title>
     <link rel="stylesheet" href="css/quiz.css">
 </head>
 <body>
+    <!-- Incluir parabéns se necessário -->
+    <% if (mostrarParabens === 'nivel2') { %>
+        <%- include('includes/parabens-nivel2') %>
+    <% } else if (mostrarParabens === 'nivel3') { %>
+        <%- include('includes/parabens-nivel3') %>
+    <% } %>
+    
     <div class="container">
         <header class="header">
             <div class="browser-bar">
@@ -16,52 +23,192 @@
                     <div class="dot orange"></div>
                 </div>
             </div>
-            <h1 class="main-title">VAMOS REVISAR?</h1>
+            <h1 class="main-title">
+                <% if (pergunta) { %>
+                    NÍVEL <%= nivel %> - VAMOS REVISAR?
+                <% } else { %>
+                    PARABÉNS!
+                <% } %>
+            </h1>
         </header>
 
+        <% if (pergunta) { %>
         <main class="content">
             <div class="quiz-section">
-                <h2 class="question">QUAL DESSES É O GABINETE?</h2>
+                <h2 class="question"><%= pergunta.titulo %></h2>
                 
                 <div class="alternatives-grid">
-                    <div class="alternative-box" data-answer="a">
-                        <div class="alternative-label">A</div>
-                        <img src="img/monitor4.png" alt="Monitor" class="alternative-image">
+                    <% pergunta.respostas.forEach((resposta, index) => { %>
+                    <div class="alternative-box" data-answer="<%= resposta.letra.toLowerCase() %>" data-resposta-id="<%= resposta.id %>">
+                        <div class="alternative-label"><%= resposta.letra %></div>
+                        <% if (resposta.imagem) { %>
+                            <img src="<%= resposta.imagem %>" alt="<%= resposta.titulo %>" class="alternative-image">
+                        <% } else { %>
+                            <div class="alternative-text"><%= resposta.titulo %></div>
+                        <% } %>
                     </div>
-                    
-                    <div class="alternative-box" data-answer="b">
-                        <div class="alternative-label">B</div>
-                        <img src="img/carro.png" alt="Carro" class="alternative-image">
-                    </div>
-                    
-                    <div class="alternative-box correct-answer" data-answer="c">
-                        <div class="alternative-label">C</div>
-                        <img src="img/gabinete2.png" alt="Gabinete" class="alternative-image">
-                    </div>
-                    
-                    <div class="alternative-box" data-answer="d">
-                        <div class="alternative-label">D</div>
-                        <img src="img/teclado.png" alt="Teclado" class="alternative-image">
-                    </div>
+                    <% }); %>
+                </div>
+                
+                <!-- Indicador de progresso -->
+                <div class="progress-indicator">
+                    Nível <%= nivel %> - Pergunta <%= posicaoAtual %> de <%= totalPerguntas %>
                 </div>
             </div>
         </main>
+        <% } %>
 
         <footer class="footer">
-            <button class="nav-btn" id="prevBtn">
-                <span>PÁGINA ANTERIOR</span>
-            </button>
-            
-            <button class="nav-btn primary" id="nextBtn">
-                <span>PRÓXIMA PÁGINA</span>
-                <div class="btn-glow"></div>
-            </button>
+            <% if (pergunta) { %>
+                <% if (posicaoAtual > 1) { %>
+                <button class="nav-btn" onclick="window.location.href='/quiz?nivel=<%= nivel %>&p=<%= posicaoAtual - 1 %>'">
+                    <span>PÁGINA ANTERIOR</span>
+                </button>
+                <% } else if (nivel > 1) { %>
+                <button class="nav-btn" onclick="voltarNivelAnterior()">
+                    <span>NÍVEL ANTERIOR</span>
+                </button>
+                <% } else { %>
+                <button class="nav-btn" onclick="window.location.href='/explicacao2'">
+                    <span>PÁGINA ANTERIOR</span>
+                </button>
+                <% } %>
+                
+                <% if (posicaoAtual < totalPerguntas) { %>
+                <button class="nav-btn primary" id="nextBtn" onclick="proximaPergunta()">
+                    <span>PRÓXIMA PÁGINA</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <% } else { %>
+                <button class="nav-btn primary" id="nextBtn" onclick="finalizarNivel()">
+                    <span>FINALIZAR NÍVEL <%= nivel %></span>
+                    <div class="btn-glow"></div>
+                </button>
+                <% } %>
+            <% } %>
         </footer>
     </div>
 
     <!-- Canvas para confetes -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="quizgabinete.ejs"></script>
+    <script>
+        let respostaSelecionada = null;
+        <% const nivelJS = nivel || 1; %>
+        <% const posicaoAtualJS = posicaoAtual || 1; %>
+        <% const totalPerguntasJS = totalPerguntas || 1; %>
+        <% const mostrarParabensJS = mostrarParabens || ""; %>
+        <% const proximoNivelJS = proximoNivel || 'null'; %>
+        
+        const nivel = <%= nivelJS %>;
+        const posicaoAtual = <%= posicaoAtualJS %>;
+        const totalPerguntas = <%= totalPerguntasJS %>;
+        const mostrarParabens = '<%= mostrarParabensJS %>';
+        const proximoNivel = <%= proximoNivelJS %>;
+        
+        // Adicionar eventos de clique nas alternativas
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM carregado, adicionando eventos...');
+            const alternatives = document.querySelectorAll('.alternative-box');
+            console.log('Alternativas encontradas:', alternatives.length);
+            
+            alternatives.forEach(box => {
+                box.addEventListener('click', function() {
+                    console.log('Alternativa clicada:', this.dataset.respostaId);
+                    
+                    // Remover seleção anterior
+                    document.querySelectorAll('.alternative-box').forEach(b => b.classList.remove('selected'));
+                    
+                    // Adicionar seleção atual
+                    this.classList.add('selected');
+                    respostaSelecionada = this.dataset.respostaId;
+                    
+                    console.log('Resposta selecionada:', respostaSelecionada);
+                });
+            });
+        });
+        
+        // Função para continuar quiz (dos includes de parabéns)
+        function continuarQuiz() {
+            if (proximoNivel) {
+                window.location.href = `/quiz?nivel=${proximoNivel}&p=1`;
+            }
+        }
+        
+        function proximaPergunta() {
+            console.log('proximaPergunta chamada, resposta selecionada:', respostaSelecionada);
+            
+            if (!respostaSelecionada) {
+                alert('Por favor, selecione uma resposta!');
+                return;
+            }
+            
+            console.log('Enviando resposta para verificação...');
+            
+            // Verificar resposta
+            fetch('/api/quiz/verificar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ respostaId: respostaSelecionada })
+            })
+            .then(response => {
+                console.log('Resposta recebida:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dados recebidos:', data);
+                if (data.success) {
+                    alert(data.message);
+                    // Ir para próxima pergunta
+                    window.location.href = `/quiz?nivel=${nivel}&p=${posicaoAtual + 1}`;
+                } else {
+                    alert('Erro: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao verificar resposta');
+            });
+        }
+        
+        function finalizarNivel() {
+            if (!respostaSelecionada) {
+                alert('Por favor, selecione uma resposta!');
+                return;
+            }
+            
+            // Verificar última resposta e ir para próximo nível ou finalizar
+            fetch('/api/quiz/verificar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ respostaId: respostaSelecionada })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    // Ir para próxima pergunta (que vai mostrar parabéns se necessário)
+                    window.location.href = `/quiz?nivel=${nivel}&p=${posicaoAtual + 1}`;
+                } else {
+                    alert('Erro: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao verificar resposta');
+            });
+        }
+        
+        function voltarNivelAnterior() {
+            if (nivel > 1) {
+                // Buscar última pergunta do nível anterior
+                window.location.href = `/quiz?nivel=${nivel - 1}&p=1`;
+            }
+        }
+    </script>
 </body>
 </html>

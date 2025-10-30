@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
 // Configurações de conexão com o banco de dados
 const dbConfig = {
@@ -17,7 +17,7 @@ const pool = mysql.createPool(dbConfig);
 // Função para testar a conexão
 const testConnection = async () => {
     try {
-        const connection = await pool.promise().getConnection();
+        const connection = await pool.getConnection();
         console.log('✅ Conexão com banco de dados MySQL estabelecida com sucesso!');
         console.log(`📊 Banco: ${dbConfig.database}`);
         console.log(`🏠 Host: ${dbConfig.host}:${dbConfig.port}`);
