@@ -165,7 +165,7 @@ body {
     -webkit-backdrop-filter: blur(15px);
     border: 3px solid var(--vidro-borda);
     border-radius: 16px;
-    padding: clamp(15px, 3vh, 30px); /* ✅ Padding responsivo */
+    padding: clamp(40px, 3vh, 30px); /* ✅ Padding responsivo */
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
  
@@ -219,6 +219,13 @@ body {
     font-family: "Mochiy Pop One", sans-serif;
     font-weight: 400;
     text-transform: uppercase;
+   
+}
+
+/* ✅ Remove o cursor após a animação terminar */
+.rule-text p.typing-complete {
+    border-right: none;
+    white-space: normal; /* Permite quebra de linha após completar */
 }
  
 /* ========================================
@@ -240,15 +247,14 @@ body {
     transition: filter 0.3s ease, transform 0.3s ease;
     cursor: pointer;
     object-fit: contain;
-    /* ✅ Brilho de tesouro nas imagens */
-    filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.7))
-            drop-shadow(0 0 40px rgba(34, 211, 238, 0.5))
-            drop-shadow(0 0 60px rgba(59, 130, 246, 0.4));
+    /* ✅ Sem brilho inicial */
+    filter: none;
 }
 
 /* Efeito ao passar o mouse */
 .image-item:hover {
     transform: scale(1.08);
+    /* ✅ Brilho de tesouro apenas no hover */
     filter: drop-shadow(0 0 30px rgba(34, 211, 238, 1))
             drop-shadow(0 0 60px rgba(34, 211, 238, 0.8))
             drop-shadow(0 0 90px rgba(59, 130, 246, 0.6));
@@ -260,10 +266,17 @@ body {
 .footer {
     position: fixed;   /* fixa o rodapé na tela */
     bottom: clamp(15px, 3vh, 30px); /* ✅ Distância responsiva */
-    right: clamp(20px, 4vw, 50px); /* ✅ Distância responsiva */
+    left: 50%; /* ✅ Centraliza horizontalmente */
+    transform: translateX(-50%); /* ✅ Ajuste fino de centralização */
     margin: 0;
-    text-align: right;
     z-index: 1000;     /* garante que fique por cima de tudo */
+    display: flex;
+    gap: 20px; /* ✅ Espaçamento entre botões */
+    align-items: center;
+    justify-content: center;
+    max-width: min(95vw, 1200px); /* ✅ Alinha com o container */
+    width: 100%;
+    padding: 0 clamp(10px, 2vw, 20px);
 }
  
 .learn-more-btn {

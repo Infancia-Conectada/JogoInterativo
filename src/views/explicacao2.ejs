@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explicacao Passo-a-passo</title>
+    <title>Explicação Passo-a-passo</title>
     <link rel="stylesheet" href="css/explicacao2.css">
 </head>
 <body>
@@ -16,55 +16,104 @@
                     <div class="dot orange"></div>
                 </div>
             </div>
-            <h1 class="main-title">COMO CRIAR UM TEXTO ?</h1>
+            <h1 class="main-title">COMO CRIAR UM TEXTO?</h1>
         </header>
 
         <main class="content">
-            <div class="rules-section">
+            <!-- SEÇÃO DE PASSOS -->
+            <section class="rules-section">
                 <ul class="steps-list">
-                    <li class="step-item">Clique com o botão direito do mouse em uma área vazia</li>
-                    <li class="step-item">Procure por "Novo" no menu</li>
-                    <li class="step-item">Clique em "Novo" ou apenas deixe o Mouse por cima</li>
-                    <li class="step-item">Clique em "Documento de Texto" e digite o nome que você quer dar para essa nota</li>
-                    <li class="step-item">Pressione Enter para confirmar</li>
-                    <li class="step-item">Clique duas vezes no Arquivo de Texto que você nomeou</li>
-                </ul>
-            </div>
+                    <!-- Passo 1 -->
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Clique com o botão direito do mouse em uma área vazia</span>
+                    </li>
 
-             <main class="content">
-            <div class="quiz-section">
-                <h2 class="question">Como criamos uma pasta simples?</h2>
-                
-                <div class="alternatives-grid">
-                    <div class="alternative-box">
-                        <div class="alternative-label"></div>
-                        <img src="images/criandopasta1.png" alt="Criação do arquivo de texto/notas">
-                    </div>
-                    
-                    <div class="alternative-box">
-                        <div class="alternative-label"></div>
-                        <img src="images/nomeando.jpg" alt="Nomeando arquivo recem criado antes de abrir">
-                    </div>
-                        <div class="alternative-box">
-                        <div class="alternative-label"></div>
-                        <img src="images/doctexto.png" alt="Arquivo de texto/notas aberto e pronto para escrever">
-                    </div>
+                    <!-- Passo 2 -->
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Procure por "Novo" no menu</span>
+                    </li>
+
+                    <!-- Passo 3 -->
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Clique em "Novo" ou apenas deixe o Mouse por cima</span>
+                    </li>
+
+                    <!-- Passo 4 -->
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <span class="step-text">Clique em "Documento de Texto" e digite o nome que você quer dar para essa nota</span>
+                    </li>
+
+                    <!-- Passo 5 -->
+                    <li class="step-item">
+                        <span class="step-number">5</span>
+                        <span class="step-text">Pressione Enter para confirmar</span>
+                    </li>
+
+                    <!-- Passo 6 -->
+                    <li class="step-item">
+                        <span class="step-number">6</span>
+                        <span class="step-text">Clique duas vezes no Arquivo de Texto que você nomeou</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- SEÇÃO DE IMAGENS -->
+            <aside class="image-section">
+                <div class="image-container">
+                    <img src="images/criandopasta1.png" alt="Criação do arquivo de texto/notas" class="image-item">
+                    <p class="image-caption">Criando o arquivo de texto</p>
                 </div>
-            </div>
+                
+                <div class="image-container">
+                    <img src="images/nomeando.jpg" alt="Nomeando arquivo recém criado antes de abrir" class="image-item">
+                    <p class="image-caption">Nomeando o arquivo</p>
+                </div>
+                
+                <div class="image-container">
+                    <img src="images/doctexto.png" alt="Arquivo de texto/notas aberto e pronto para escrever" class="image-item">
+                    <p class="image-caption">Arquivo pronto para escrever</p>
+                </div>
+            </aside>
         </main>
 
+        <!-- RODAPÉ COM BOTÕES CENTRALIZADOS -->
         <footer class="footer">
-    <button class="learn-more-btn" id="prevBtn" onclick="voltarPagina()">
-        <span>Página Anterior</span>
-        <div class="btn-glow"></div>
-    </button>
+            <button class="learn-more-btn" id="prevBtn" type="button">
+                <span>Página Anterior</span>
+                <div class="btn-glow"></div>
+            </button>
 
-    <button class="learn-more-btn" id="nextBtn" onclick="proximaPagina()">
-        <span>Próxima Página</span>
-        <div class="btn-glow"></div>
-    </button>
-</footer>
+            <button class="learn-more-btn" id="nextBtn" type="button">
+                <span>Próxima Página</span>
+                <div class="btn-glow"></div>
+            </button>
+        </footer>
+    </div>
 
-    <script src="js/dashboard.js"></script>
+    <script>
+        // ===== NAVEGAÇÃO DOS BOTÕES =====
+        document.getElementById('prevBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-anterior.html"; // troque pelo link real
+        });
+
+        document.getElementById('nextBtn')?.addEventListener('click', () => {
+            window.location.href = "pagina-proxima.html"; // troque pelo link real
+        });
+
+        // ===== EFEITO DE HIGHLIGHT AO CLICAR NOS PASSOS =====
+        const stepItems = document.querySelectorAll('.step-item');
+        stepItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove highlight de todos
+                stepItems.forEach(step => step.classList.remove('highlighted'));
+                // Adiciona highlight no clicado
+                this.classList.add('highlighted');
+            });
+        });
+    </script>
 </body>
 </html>
