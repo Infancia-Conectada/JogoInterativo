@@ -1,14 +1,18 @@
 // Carregar variáveis de ambiente
-require('dotenv').config();
+import dotenv from 'dotenv';
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const express = require('express');
-const path = require('path');
+// Importar rotas e banco de dados
+import routes from './src/routes/index.js';
+import pool, { testConnection } from './src/config/database.js';
 
-// Importar rotas
-const routes = require('./src/routes'); // usa o router que inclui /homejogo
+// Corrigir __dirname e __filename (não existem em ES Modules)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Importar configuração do banco de dados
-const database = require('./src/config/database');
+dotenv.config();
 
 const app = express();
 
@@ -28,21 +32,19 @@ app.use('/', routes);
 
 // Middleware para tratamento de erro 404
 app.use((req, res) => {
-    res.status(404).render('404', { 
-        title: 'Página não encontrada',
-        message: 'A página que você está procurando não existe.'
-    });
+  res.status(404).render('404', { 
+    title: 'Página não encontrada',
+    message: 'A página que você está procurando não existe.'
+  });
 });
 
 // Inicializar servidor
 const PORT = process.env.APP_PORT || 3000;
 
 app.listen(PORT, async () => {
-    console.log(`🚀 Servidor rodando na porta ${PORT}`);
-    console.log(`🌐 Acesse: http://localhost:${PORT}`);
-    
-    // Testar conexão com banco de dados
-    await database.testConnection();
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+  console.log(`🌐 Acesse: http://localhost:${PORT}`);
+  
+  // Testar conexão com banco de dados
+  await testConnection();
 });
-
-module.exports = app;

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introdução</title>
-    <link rel="stylesheet" href="css/intro.css">
+    <title><%= conteudo.titulo %></title>
+    <link rel="stylesheet" href="/css/intro.css">
 </head>
 <body>
     <div class="container">
@@ -16,23 +16,21 @@
                     <div class="dot"></div>
                 </div>
             </div>
-            <h1 class="main-title">O QUE É O MONITOR?</h1>
+            <h1 class="main-title"><%= conteudo.titulo %></h1>
         </header>
 
         <main class="content">
             <div class="ensino-section">
                 <div class="image-container">
-                    <img src="/img/monitor1.png" 
-                         alt="Monitor de computador" 
+                    <img src="<%= conteudo.imagem %>" 
+                         alt="<%= conteudo.titulo %>" 
                          class="ensino-image">
                 </div>
-                
-               
             </div>
         </main>
 
         <footer class="footer">
-            <button class="nav-btn" id="prevBtn" onclick="voltarPagina()">
+            <button class="nav-btn" id="prevBtn" onclick="voltarPagina()" <% if (!temAnterior) { %>disabled<% } %>>
                 <span>PÁGINA ANTERIOR</span>
             </button>
             
@@ -46,6 +44,24 @@
     <!-- Canvas para confetes -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="js/introMonitor.js"></script>
+    <script>
+        // Dados da página atual
+        const paginaAtual = <%= ordem %>;
+        const temProxima = <%= temProxima %>;
+        const temAnterior = <%= temAnterior %>;
+        const totalIntros = <%= totalIntros %>;
+
+        function voltarPagina() {
+            if (paginaAtual > 1) {
+                // Volta para a explicação anterior se houver
+                window.location.href = `/explicacao/<%= ordem - 1 %>/1`;
+            }
+        }
+
+        function proximaPagina() {
+            // Sempre vai para a explicação correspondente ao número da intro
+            window.location.href = `/explicacao/<%= ordem %>/1`;
+        }
+    </script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
-    <link rel="stylesheet" href="css/quiz.css">
+    <title><%= pergunta.titulo %></title>
+    <link rel="stylesheet" href="/css/quiz.css">
 </head>
 <body>
     <div class="container">
@@ -16,43 +16,34 @@
                     <div class="dot orange"></div>
                 </div>
             </div>
-            <h1 class="main-title">VAMOS REVISAR?</h1>
+            <h1 class="main-title"><%= pergunta.titulo %></h1>
         </header>
 
         <main class="content">
             <div class="quiz-section">
-                <h2 class="question">QUAL DESSES É O GABINETE?</h2>
+                <h2 class="question"><%= pergunta.titulo %></h2>
                 
                 <div class="alternatives-grid">
-                    <div class="alternative-box" data-answer="a">
-                        <div class="alternative-label">A</div>
-                        <img src="img/monitor4.png" alt="Monitor" class="alternative-image">
-                    </div>
-                    
-                    <div class="alternative-box" data-answer="b">
-                        <div class="alternative-label">B</div>
-                        <img src="img/carro.png" alt="Carro" class="alternative-image">
-                    </div>
-                    
-                    <div class="alternative-box correct-answer" data-answer="c">
-                        <div class="alternative-label">C</div>
-                        <img src="img/gabinete2.png" alt="Gabinete" class="alternative-image">
-                    </div>
-                    
-                    <div class="alternative-box" data-answer="d">
-                        <div class="alternative-label">D</div>
-                        <img src="img/teclado.png" alt="Teclado" class="alternative-image">
-                    </div>
+                    <% respostas.forEach((resposta, index) => { %>
+                        <div class="alternative-box" data-id="<%= resposta.id %>" onclick="selecionarResposta(this)">
+                            <div class="alternative-label"><%= String.fromCharCode(65 + index) %></div>
+                            <% if (resposta.imagem) { %>
+                                <img src="<%= resposta.imagem %>" alt="<%= resposta.titulo %>" class="alternative-image">
+                            <% } else { %>
+                                <div class="alternative-text"><%= resposta.titulo %></div>
+                            <% } %>
+                        </div>
+                    <% }); %>
                 </div>
             </div>
         </main>
 
         <footer class="footer">
-            <button class="nav-btn" id="prevBtn">
+            <button class="nav-btn" id="prevBtn" onclick="voltarPagina()">
                 <span>PÁGINA ANTERIOR</span>
             </button>
             
-            <button class="nav-btn primary" id="nextBtn">
+            <button class="nav-btn primary" id="nextBtn" onclick="enviarResposta()">
                 <span>PRÓXIMA PÁGINA</span>
                 <div class="btn-glow"></div>
             </button>
@@ -62,6 +53,49 @@
     <!-- Canvas para confetes -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="quizgabinete.ejs"></script>
+    <script>
+        const ordem = <%= ordem %>;
+        const total = <%= total %>;
+        let respostaSelecionada = null;
+
+        function selecionarResposta(elemento) {
+            // Remove seleção anterior
+            document.querySelectorAll('.alternative-box').forEach(box => {
+                box.classList.remove('selected');
+            });
+            
+            // Marca como selecionada
+            elemento.classList.add('selected');
+            respostaSelecionada = elemento.dataset.id;
+        }
+
+        function voltarPagina() {
+            // Volta para a explicação anterior
+            if (ordem > 1) {
+                window.location.href = `/explicacao/<%= ordem - 1 %>/1`;
+            }
+        }
+
+        function enviarResposta() {
+            if (!respostaSelecionada) {
+                alert('Por favor, selecione uma resposta!');
+                return;
+            }
+
+            // Envia a resposta via POST
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/quiz/<%= ordem %>/submit`;
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'idResposta';
+            input.value = respostaSelecionada;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Explicação</title>
-    <link rel="stylesheet" href="css/explicacao.css" />
+    <title><%= conteudo.titulo %></title>
+    <link rel="stylesheet" href="/css/explicacao.css" />
     <style>
         /* Botões de navegação no rodapé */
         .nav-buttons {
@@ -30,51 +30,43 @@
                     <div class="dot orange"></div>
                 </div>
             </div>
-            <h1 class="main-title">O QUE É O TECLADO E O MOUSE ?</h1>
+            <h1 class="main-title"><%= conteudo.titulo %></h1>
         </header>
  
         <main class="content">
             <!-- TEXTO EXPLICATIVO -->
-            <section class="rules-section" aria-labelledby="sec-gabinete">
+            <section class="rules-section" aria-labelledby="sec-explicacao">
                 <div class="rule-item" data-rule="1">
                     <div class="rule-text">
-                        <h3 id="sec-tecladomouse">
-
-</p>O teclado e o mouse são como ferramentas mágicas que ajudam você a conversar
-com o computador!</p>
-
-&nbsp
-
-</p>O teclado é como uma máquina de escrever que ajuda você a digitar e
-controlar o computador!</p>
-&nbsp
-
-&nbsp
-</p>O mouse é como uma varinha mágica! Você o move com a mão e ele faz o
-ponteiro se mexer na tela.
-Com ele, você pode clicar, arrastar e brincar com o computador!</p>
-&nbsp
-                 
-       
+                        <h3 id="sec-explicacao">
+                            <p><%= conteudo.texto_secundario %></p>
+                        </h3>
                     </div>
                 </div>
             </section>
  
             <!-- IMAGENS ILUSTRATIVAS -->
-            <aside class="image-section" aria-label="Imagens ilustrativas do gabinete">
-                <img src="img/teclado1.png" alt="Gabinete visto de frente" class="image-item" />
-                <img src="img/mouse.png" alt="Outro modelo de gabinete" class="image-item" />
+            <aside class="image-section" aria-label="Imagens ilustrativas">
+                <% if (imagemIntro) { %>
+                    <img src="<%= imagemIntro %>" alt="Ilustração da intro" class="image-item" />
+                <% } %>
+                <% if (conteudo.imagem_1) { %>
+                    <img src="<%= conteudo.imagem_1 %>" alt="Ilustração 1" class="image-item" />
+                <% } %>
+                <% if (conteudo.imagem_2) { %>
+                    <img src="<%= conteudo.imagem_2 %>" alt="Ilustração 2" class="image-item" />
+                <% } %>
             </aside>
         </main>
  
         <footer class="footer">
             <div class="nav-buttons">
-                <button class="learn-more-btn" id="prevPageBtn" type="button">
+                <button class="learn-more-btn" id="prevPageBtn" type="button" onclick="voltarPagina()" <% if (!temAnterior) { %>disabled<% } %>>
                     <span>Página Anterior</span>
                     <div class="btn-glow"></div>
                 </button>
  
-                <button class="learn-more-btn" id="nextPageBtn" type="button">
+                <button class="learn-more-btn" id="nextPageBtn" type="button" onclick="proximaPagina()">
                     <span>Próxima Página</span>
                     <div class="btn-glow"></div>
                 </button>
@@ -83,15 +75,28 @@ Com ele, você pode clicar, arrastar e brincar com o computador!</p>
     </div>
  
     <script>
-        // Botão Página Anterior
-        document.getElementById('prevPageBtn')?.addEventListener('click', () => {
-            window.location.href = "pagina-anterior.html"; // troque pelo link real
-        });
- 
-        // Botão Próxima Página
-        document.getElementById('nextPageBtn')?.addEventListener('click', () => {
-            window.location.href = "pagina-proxima.html"; // troque pelo link real
-        });
+        const paginaAtual = <%= ordem %>;
+        const temProxima = <%= temProxima %>;
+        const temAnterior = <%= temAnterior %>;
+        const tipoExplicacao = '<%= tipo %>';
+        const totalIntros = 3; // Total de intros (1, 2, 3)
+
+        function voltarPagina() {
+            // Volta para a intro correspondente
+            window.location.href = `/intro/<%= ordem %>`;
+        }
+
+        function proximaPagina() {
+            const proximaOrdem = <%= ordem %> + 1;
+            
+            // Se ainda há mais intros, vai para a próxima intro
+            if (proximaOrdem <= totalIntros) {
+                window.location.href = `/intro/${proximaOrdem}`;
+            } else {
+                // Se terminou as intros, vai para o quiz
+                window.location.href = `/quiz/1`;
+            }
+        }
     </script>
 </body>
 </html>

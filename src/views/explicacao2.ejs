@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explicação Passo-a-passo</title>
-    <link rel="stylesheet" href="css/explicacao2.css">
+    <title><%= conteudo.titulo %></title>
+    <link rel="stylesheet" href="/css/explicacao2.css">
 </head>
 <body>
     <div class="container">
@@ -16,78 +16,78 @@
                     <div class="dot orange"></div>
                 </div>
             </div>
-            <h1 class="main-title">COMO CRIAR UM TEXTO?</h1>
+            <h1 class="main-title"><%= conteudo.titulo %></h1>
         </header>
 
         <main class="content">
-            <!-- SEÇÃO DE PASSOS -->
+            <!-- SEÇÃO DE PASSOS/TEXTO -->
             <section class="rules-section">
-                <ul class="steps-list">
-                    <!-- Passo 1 -->
-                    <li class="step-item">
-                        <span class="step-number">1</span>
-                        <span class="step-text">Clique com o botão direito do mouse em uma área vazia</span>
-                    </li>
-
-                    <!-- Passo 2 -->
-                    <li class="step-item">
-                        <span class="step-number">2</span>
-                        <span class="step-text">Procure por "Novo" no menu</span>
-                    </li>
-
-                    <!-- Passo 3 -->
-                    <li class="step-item">
-                        <span class="step-number">3</span>
-                        <span class="step-text">Clique em "Novo" ou apenas deixe o Mouse por cima</span>
-                    </li>
-
-                    <!-- Passo 4 -->
-                    <li class="step-item">
-                        <span class="step-number">4</span>
-                        <span class="step-text">Clique em "Documento de Texto" e digite o nome que você quer dar para essa nota</span>
-                    </li>
-
-                    <!-- Passo 5 -->
-                    <li class="step-item">
-                        <span class="step-number">5</span>
-                        <span class="step-text">Pressione Enter para confirmar</span>
-                    </li>
-
-                    <!-- Passo 6 -->
-                    <li class="step-item">
-                        <span class="step-number">6</span>
-                        <span class="step-text">Clique duas vezes no Arquivo de Texto que você nomeou</span>
-                    </li>
-                </ul>
+                <% if (conteudo.texto_secundario_1 || conteudo.texto_secundario_2 || conteudo.texto_secundario_3 || conteudo.texto_secundario_4 || conteudo.texto_secundario_5) { %>
+                    <ul class="steps-list">
+                        <% if (conteudo.texto_secundario_1) { %>
+                            <li class="step-item">
+                                <span class="step-number">1</span>
+                                <span class="step-text"><%= conteudo.texto_secundario_1 %></span>
+                            </li>
+                        <% } %>
+                        <% if (conteudo.texto_secundario_2) { %>
+                            <li class="step-item">
+                                <span class="step-number">2</span>
+                                <span class="step-text"><%= conteudo.texto_secundario_2 %></span>
+                            </li>
+                        <% } %>
+                        <% if (conteudo.texto_secundario_3) { %>
+                            <li class="step-item">
+                                <span class="step-number">3</span>
+                                <span class="step-text"><%= conteudo.texto_secundario_3 %></span>
+                            </li>
+                        <% } %>
+                        <% if (conteudo.texto_secundario_4) { %>
+                            <li class="step-item">
+                                <span class="step-number">4</span>
+                                <span class="step-text"><%= conteudo.texto_secundario_4 %></span>
+                            </li>
+                        <% } %>
+                        <% if (conteudo.texto_secundario_5) { %>
+                            <li class="step-item">
+                                <span class="step-number">5</span>
+                                <span class="step-text"><%= conteudo.texto_secundario_5 %></span>
+                            </li>
+                        <% } %>
+                    </ul>
+                <% } %>
             </section>
 
             <!-- SEÇÃO DE IMAGENS -->
             <aside class="image-section">
-                <div class="image-container">
-                    <img src="images/criandopasta1.png" alt="Criação do arquivo de texto/notas" class="image-item">
-                    <p class="image-caption">Criando o arquivo de texto</p>
-                </div>
+                <% if (imagemIntro) { %>
+                    <div class="image-container">
+                        <img src="<%= imagemIntro %>" alt="Ilustração da intro" class="image-item">
+                    </div>
+                <% } %>
                 
-                <div class="image-container">
-                    <img src="images/nomeando.jpg" alt="Nomeando arquivo recém criado antes de abrir" class="image-item">
-                    <p class="image-caption">Nomeando o arquivo</p>
-                </div>
+                <% if (conteudo.imagem_1) { %>
+                    <div class="image-container">
+                        <img src="<%= conteudo.imagem_1 %>" alt="Ilustração 1" class="image-item">
+                    </div>
+                <% } %>
                 
-                <div class="image-container">
-                    <img src="images/doctexto.png" alt="Arquivo de texto/notas aberto e pronto para escrever" class="image-item">
-                    <p class="image-caption">Arquivo pronto para escrever</p>
-                </div>
+                <% if (conteudo.imagem_2) { %>
+                    <div class="image-container">
+                        <img src="<%= conteudo.imagem_2 %>" alt="Ilustração 2" class="image-item">
+                    </div>
+                <% } %>
             </aside>
         </main>
 
-        <!-- RODAPÉ COM BOTÕES CENTRALIZADOS -->
+        <!-- RODAPÉ COM BOTÕES -->
         <footer class="footer">
-            <button class="learn-more-btn" id="prevBtn" type="button">
+            <button class="learn-more-btn" id="prevBtn" type="button" onclick="voltarPagina()" <% if (!temAnterior) { %>disabled<% } %>>
                 <span>Página Anterior</span>
                 <div class="btn-glow"></div>
             </button>
 
-            <button class="learn-more-btn" id="nextBtn" type="button">
+            <button class="learn-more-btn" id="nextBtn" type="button" onclick="proximaPagina()">
                 <span>Próxima Página</span>
                 <div class="btn-glow"></div>
             </button>
@@ -95,22 +95,34 @@
     </div>
 
     <script>
-        // ===== NAVEGAÇÃO DOS BOTÕES =====
-        document.getElementById('prevBtn')?.addEventListener('click', () => {
-            window.location.href = "pagina-anterior.html"; // troque pelo link real
-        });
+        const paginaAtual = <%= ordem %>;
+        const temProxima = <%= temProxima %>;
+        const temAnterior = <%= temAnterior %>;
+        const tipoExplicacao = '<%= tipo %>';
+        const totalIntros = 3; // Total de intros (1, 2, 3)
 
-        document.getElementById('nextBtn')?.addEventListener('click', () => {
-            window.location.href = "pagina-proxima.html"; // troque pelo link real
-        });
+        function voltarPagina() {
+            // Volta para a intro correspondente
+            window.location.href = `/intro/<%= ordem %>`;
+        }
 
-        // ===== EFEITO DE HIGHLIGHT AO CLICAR NOS PASSOS =====
+        function proximaPagina() {
+            const proximaOrdem = <%= ordem %> + 1;
+            
+            // Se ainda há mais intros, vai para a próxima intro
+            if (proximaOrdem <= totalIntros) {
+                window.location.href = `/intro/${proximaOrdem}`;
+            } else {
+                // Se terminou as intros, vai para o quiz
+                window.location.href = `/quiz/1`;
+            }
+        }
+
+        // Efeito de highlight ao clicar nos passos
         const stepItems = document.querySelectorAll('.step-item');
         stepItems.forEach(item => {
             item.addEventListener('click', function() {
-                // Remove highlight de todos
                 stepItems.forEach(step => step.classList.remove('highlighted'));
-                // Adiciona highlight no clicado
                 this.classList.add('highlighted');
             });
         });

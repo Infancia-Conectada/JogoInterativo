@@ -1,59 +1,22 @@
-const express = require('express');
+import express from 'express';
+import homeController from '../controllers/homeController.js';
+import introRoutes from './introRoutes.js';
+import explicacaoRoutes from './explicacaoRoutes.js';
+import quizRoutes from './quizRoutes.js';
+import parabensRoutes from './parabensRoutes.js';
+
 const router = express.Router();
 
+// Rotas da home
+router.get('/', homeController.renderInicio);
+router.get('/inicio', homeController.renderInicio);
+router.get('/introducao', homeController.renderIntroducao);
+router.get('/iniciar', homeController.iniciarJogo);
 
-router.get('/dashboard', function (req, res) {
-    res.render('dashboard');
-})
-router.get('/inicio', (req, res) => {
-  // Renderiza o arquivo src/views/inicio.ejs
-  res.render('inicio');
-});
+// Sub-rotas modulares
+router.use('/intro', introRoutes);
+router.use('/explicacao', explicacaoRoutes);
+router.use('/quiz', quizRoutes);
+router.use('/parabens', parabensRoutes);
 
-router.get('/intro', (req, res) => {
-  // Renderiza o arquivo src/views/homejogo.ejs
-  res.render('intro');
-});
-
-router.get('/explicacao', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('explicacao');
-});
-
-router.get('/explicacao2', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('explicacao2');
-});
-
-router.get('/quiz', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('quiz');
-});
-
-router.get('/parabens', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('parabens');
-});
-
-router.get('/parabensFinal', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('parabensFinal');
-});
-
-router.get('/certificado', (req, res) => {
-  // Renderiza o arquivo src/views/quizgabinete.ejs
-  res.render('certificado');
-});
-
-router.get('/introducao', (req, res) => {
-  // Renderiza o arquivo src/views/homejogo.ejs
-  res.render('introducao');
-});
-
-// Aqui você pode adicionar outras rotas no futuro:
-// const userRoutes = require('./user');
-// const adminRoutes = require('./admin');
-// router.use('/user', userRoutes);
-// router.use('/admin', adminRoutes);
-
-module.exports = router;
+export default router;
