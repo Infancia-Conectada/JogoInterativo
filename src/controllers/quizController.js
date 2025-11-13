@@ -3,18 +3,18 @@ import { getRespostasPorPergunta, getRespostaPorId } from '../models/respostasMo
 import { incrementNivelProgress, resetNivelProgress } from '../middleware/sessionProgress.js';
 
 /**
- * GET /quiz/:ordem
- * Exibe a primeira pergunta do quiz correspondente à ordem da intro/explicação
+ * GET /quiz/:posicao
+ * Exibe uma pergunta específica do nível 1
  */
 export async function renderQuiz(req, res) {
   try {
-    const ordem = parseInt(req.params.ordem);
+    const posicao = parseInt(req.params.posicao);
     
-    if (isNaN(ordem) || ordem < 1) {
+    if (isNaN(posicao) || posicao < 1) {
       return res.redirect('/inicio');
     }
 
-    // Busca todas as perguntas do nível 1 (assumindo que o quiz está no nível 1)
+    // Nível fixo para este quiz
     const nivel = 1;
     const perguntas = await getPerguntasPorNivel(nivel);
     
@@ -23,25 +23,29 @@ export async function renderQuiz(req, res) {
       return res.redirect('/inicio');
     }
 
-    // Usa a ordem para mapear à pergunta correspondente
-    const indice = ordem - 1;
-    if (indice >= perguntas.length) {
-      return res.redirect('/inicio');
+    // Encontra a pergunta pela posição
+    const pergunta = perguntas.find(p => p.posicao === posicao);
+    
+    if (!pergunta) {
+      return res.status(404).render('404', { 
+        title: 'Página não encontrada',
+        message: 'Esta pergunta não existe.'
+      });
     }
-
-    const pergunta = perguntas[indice];
-    const total = perguntas.length;
 
     // Busca as respostas da pergunta (sem expor o campo 'correta')
     const respostas = await getRespostasPorPergunta(pergunta.id);
+
+    // Verifica se há erro na query string
+    const temErro = req.query.erro === '1';
 
     res.render('quiz', {
       pergunta,
       respostas,
       nivel,
-      ordem,
-      indice,
-      total
+      posicao,
+      totalPerguntas: perguntas.length,
+      temErro
     });
 
   } catch (error) {
@@ -51,38 +55,36 @@ export async function renderQuiz(req, res) {
 }
 
 /**
- * POST /quiz/:ordem/submit
- * Valida a resposta do usuário e aplica regras do jogo
+ * POST /quiz/:posicao/submit
+ * Valida a resposta do usuário
  */
 export async function submitResposta(req, res) {
   try {
-    const ordem = parseInt(req.params.ordem);
+    const posicao = parseInt(req.params.posicao);
     const idResposta = parseInt(req.body.idResposta);
 
-    if (isNaN(ordem) || isNaN(idResposta)) {
+    if (isNaN(posicao) || isNaN(idResposta)) {
       return res.redirect('/inicio');
     }
 
     const nivel = 1;
-    const indice = ordem - 1;
 
-    // Busca a resposta selecionada com o campo 'correta'
+    // Busca a resposta selecionada
     const respostaSelecionada = await getRespostaPorId(idResposta);
     
     if (!respostaSelecionada) {
       console.log('Resposta não encontrada');
-      return res.redirect(`/quiz/${ordem}`);
+      return res.redirect(`/quiz/${posicao}`);
     }
 
-    // Busca todas as perguntas do nível para obter total
+    // Busca todas as perguntas do nível
     const perguntas = await getPerguntasPorNivel(nivel);
-    const total = perguntas.length;
-    const perguntaAtual = perguntas[indice];
+    const perguntaAtual = perguntas.find(p => p.posicao === posicao);
 
     // Validação de segurança: resposta deve pertencer à pergunta atual
     if (respostaSelecionada.id_pergunta !== perguntaAtual.id) {
       console.log('Tentativa de envio de resposta inválida');
-      return res.redirect(`/quiz/${ordem}`);
+      return res.redirect(`/quiz/${posicao}`);
     }
 
     // Verifica se a resposta está correta
@@ -92,27 +94,43 @@ export async function submitResposta(req, res) {
       // Incrementa o progresso do nível
       const acertosNoNivel = incrementNivelProgress(req, nivel);
 
-      // Verifica se completou todas as perguntas do nível
-      if (acertosNoNivel >= total) {
+      // Verifica se completou todas as perguntas do nível (3 perguntas)
+      const totalPerguntas = 3; // Nível 1 tem 3 perguntas
+      if (acertosNoNivel >= totalPerguntas) {
         // Reset do contador para este nível
         resetNivelProgress(req, nivel);
         
-        // Redireciona para página de parabéns
-        return res.redirect(`/parabens?ordem=${ordem}`);
+        // Redireciona para página de parabéns (sem parâmetro, mostra a view parabens.ejs)
+        return res.render('parabens', { 
+          nivel,
+          mensagem: 'Parabéns! Você completou o nível 1!'
+        });
       } else {
         // Avança para próxima pergunta
-        return res.redirect(`/quiz/${ordem + 1}`);
+        const proximaPosicao = posicao + 1;
+        return res.redirect(`/quiz/${proximaPosicao}`);
       }
       
     } else {
       // RESPOSTA INCORRETA
       
-      // Redireciona para a explicação correspondente usando a ordem
-      // A ordem mapeia qual explicação mostrar (1, 2, 3, etc)
-      const tipoExplicacao = ordem <= 3 ? '1' : '2';
+      // Verifica se é a primeira tentativa errada
+      if (!req.session.tentativasErradas) {
+        req.session.tentativasErradas = {};
+      }
       
-      // Não decrementa o progresso, apenas redireciona para explicação
-      return res.redirect(`/explicacao/${ordem}/${tipoExplicacao}`);
+      const chaveErro = `pergunta_${posicao}`;
+      req.session.tentativasErradas[chaveErro] = (req.session.tentativasErradas[chaveErro] || 0) + 1;
+      
+      if (req.session.tentativasErradas[chaveErro] === 1) {
+        // Primeira tentativa errada - volta para quiz com mensagem de erro
+        res.locals.erroMsg = 'Você errou! Tente novamente.';
+        return res.redirect(`/quiz/${posicao}?erro=1`);
+      } else {
+        // Segunda tentativa errada - volta para início
+        req.session.tentativasErradas[chaveErro] = 0; // Reset
+        return res.redirect('/inicio');
+      }
     }
 
   } catch (error) {

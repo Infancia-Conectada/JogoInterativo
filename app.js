@@ -3,10 +3,12 @@ import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import session from 'express-session';
 
 // Importar rotas e banco de dados
 import routes from './src/routes/index.js';
 import pool, { testConnection } from './src/config/database.js';
+import { initializeSessionProgress } from './src/middleware/sessionProgress.js';
 
 // Corrigir __dirname e __filename (não existem em ES Modules)
 const __filename = fileURLToPath(import.meta.url);
@@ -26,6 +28,17 @@ app.use(express.static(path.join(__dirname, 'src/public')));
 // Middleware para parsing de formulários
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Configuração de sessão
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'seu-segredo-super-secreto',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 horas
+}));
+
+// Middleware para inicializar progresso da sessão
+app.use(initializeSessionProgress);
 
 // Usar as rotas
 app.use('/', routes);

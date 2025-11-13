@@ -19,7 +19,14 @@
             <h1 class="main-title"><%= pergunta.titulo %></h1>
         </header>
 
-        <main class="content">
+        <main class="content <%= temErro ? 'shake' : '' %>">
+            <% if (temErro) { %>
+                <div class="error-message">
+                    <p class="error-text">❌ Você errou!</p>
+                    <p class="retry-text">Tem mais uma chance!</p>
+                </div>
+            <% } %>
+            
             <div class="quiz-section">
                 <h2 class="question"><%= pergunta.titulo %></h2>
                 
@@ -27,11 +34,7 @@
                     <% respostas.forEach((resposta, index) => { %>
                         <div class="alternative-box" data-id="<%= resposta.id %>" onclick="selecionarResposta(this)">
                             <div class="alternative-label"><%= String.fromCharCode(65 + index) %></div>
-                            <% if (resposta.imagem) { %>
-                                <img src="<%= resposta.imagem %>" alt="<%= resposta.titulo %>" class="alternative-image">
-                            <% } else { %>
-                                <div class="alternative-text"><%= resposta.titulo %></div>
-                            <% } %>
+                            <img src="<%= resposta.imagem %>" alt="<%= resposta.titulo %>" class="alternative-image">
                         </div>
                     <% }); %>
                 </div>
@@ -54,8 +57,8 @@
     <canvas id="confetti-canvas"></canvas>
 
     <script>
-        const ordem = <%= ordem %>;
-        const total = <%= total %>;
+        const posicao = <%= posicao %>;
+        const totalPerguntas = <%= totalPerguntas %>;
         let respostaSelecionada = null;
 
         function selecionarResposta(elemento) {
@@ -70,10 +73,8 @@
         }
 
         function voltarPagina() {
-            // Volta para a explicação anterior
-            if (ordem > 1) {
-                window.location.href = `/explicacao/<%= ordem - 1 %>/1`;
-            }
+            // Volta para a explicação correspondente à pergunta
+            window.location.href = `/explicacao/<%= posicao %>/1`;
         }
 
         function enviarResposta() {
@@ -85,7 +86,7 @@
             // Envia a resposta via POST
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = `/quiz/<%= ordem %>/submit`;
+            form.action = `/quiz/<%= posicao %>/submit`;
 
             const input = document.createElement('input');
             input.type = 'hidden';

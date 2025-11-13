@@ -6,10 +6,14 @@ import pool from '../config/database.js';
 export async function getRespostasPorPergunta(idPergunta) {
   try {
     const [rows] = await pool.query(
-      'SELECT id, id_pergunta, titulo, imagem FROM respostas WHERE id_pergunta = ?',
+      'SELECT id, id_pergunta, titulo, imagem FROM respostas WHERE id_pergunta = ? ORDER BY id ASC',
       [idPergunta]
     );
-    return rows;
+    // Formata as imagens para começar com /
+    return rows.map(resposta => ({
+      ...resposta,
+      imagem: resposta.imagem ? (resposta.imagem.startsWith('/') ? resposta.imagem : '/' + resposta.imagem) : null
+    }));
   } catch (error) {
     console.error('Erro ao buscar respostas por pergunta:', error);
     throw error;

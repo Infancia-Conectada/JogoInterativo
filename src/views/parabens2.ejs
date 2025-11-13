@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parabéns!</title>
-    <link rel="stylesheet" href="/css/parabens.css">
+    <title>Parabéns</title>
+    <link rel="stylesheet" href="css/parabens.css">
 </head>
 <body>
     <div class="container">
@@ -16,26 +16,26 @@
                     <div class="dot"></div>
                 </div>
             </div>
-            <h1 class="main-title">PARABÉNS!</h1>
+            <h1 class="main-title">
         </header>
 
         <main class="content">
             <div class="parabens-section">
                 <p class="parabens-text">
                     PARABÉNS!<br>
-                    VOCÊ COMPLETOU O NÍVEL <%= nivel %>!<br>
-                    JÁ ESTÁ FICANDO ESPERTO, HEIN?
+                    VOCÊ AVANÇOU PARA O NÍVEL 3  !<br>
+                    JÁ ESTÁ SE TORNANDO UM ESPECIALISTA EM TECNOLOGIA, HEIN?  
                 </p>
             </div>
         </main>
 
         <footer class="footer">
-            <button class="nav-btn" id="prevBtn" onclick="voltarInicio()">
-                <span>VOLTAR AO INÍCIO</span>
+            <button class="nav-btn" id="prevBtn">
+                <span>PÁGINA ANTERIOR</span>
             </button>
             
-            <button class="nav-btn primary" id="nextBtn" onclick="proximoNivel()">
-                <span>PRÓXIMO NÍVEL</span>
+            <button class="nav-btn primary" id="nextBtn">
+                <span>PRÓXIMA PÁGINA</span>
                 <div class="btn-glow"></div>
             </button>
         </footer>
@@ -43,17 +43,15 @@
 
     <canvas id="confetti-canvas"></canvas>
 
-    <script>
-        const nivel = <%= nivel %>;
-
-        function voltarInicio() {
-            window.location.href = '/inicio';
-        }
-
-        function proximoNivel() {
-            // Redireciona para próximo nível
-            window.location.href = `/intro/${nivel + 1}`;
-        }
-    </script>
+   
 </body>
 </html>
+
+
+
+
+
+<!-- --- IGNORE ---
+pARABÉNS!<br>
+                    VOCÊ AVANÇOU PARA O NÍVEL 3  !<br>
+                    VOCÊ JÁ É O MESTRE DA TECNOLOGIA !!! /*
