@@ -52,7 +52,19 @@
 
         function proximoNivel() {
             // Redireciona para próximo nível
-            window.location.href = `/intro/${nivel + 1}`;
+            // Calcula a próxima ordem baseado no nível
+            // Nível 1 (perguntas 1-3) → próxima ordem é 4 (intro/4)
+            // Nível 2 (perguntas 4-6) → próxima ordem é 7 (intro/7)
+            // Nível 3 (perguntas 7-9) → vai para certificado
+            
+            if (nivel >= 3) {
+                // Completou tudo - vai para certificado
+                window.location.href = '/parabens/certificado';
+            } else {
+                // Vai para a próxima intro
+                const proximaOrdem = (nivel * 3) + 1;
+                window.location.href = `/intro/${proximaOrdem}`;
+            }
         }
     </script>
 </body>

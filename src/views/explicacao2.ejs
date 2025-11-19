@@ -99,7 +99,7 @@
         const temProxima = <%= temProxima %>;
         const temAnterior = <%= temAnterior %>;
         const tipoExplicacao = '<%= tipo %>';
-        const totalIntros = 3; // Total de intros (1, 2, 3)
+        const totalExplicacoes = <%= totalExplicacoes %>;
 
         function voltarPagina() {
             // Volta para a intro correspondente
@@ -107,14 +107,17 @@
         }
 
         function proximaPagina() {
+            // Vai para a próxima intro (ordem + 1)
             const proximaOrdem = <%= ordem %> + 1;
             
-            // Se ainda há mais intros, vai para a próxima intro
-            if (proximaOrdem <= totalIntros) {
+            // Se a próxima ordem é <= 8 (total de intros), vai para próxima intro
+            // Senão, vai para o quiz correspondente
+            if (proximaOrdem <= 8) {
                 window.location.href = `/intro/${proximaOrdem}`;
             } else {
-                // Se terminou as intros, vai para o quiz
-                window.location.href = `/quiz/1`;
+                // Calcula qual quiz baseado na ordem atual
+                // ordem 4,5,6 → quiz 4,5,6
+                window.location.href = `/quiz/<%= ordem %>`;
             }
         }
 

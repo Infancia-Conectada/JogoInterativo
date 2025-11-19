@@ -57,8 +57,7 @@
     <canvas id="confetti-canvas"></canvas>
 
     <script>
-        const posicao = <%= posicao %>;
-        const totalPerguntas = <%= totalPerguntas %>;
+        const posicao = <%= ordem %>;
         let respostaSelecionada = null;
 
         function selecionarResposta(elemento) {
@@ -74,7 +73,7 @@
 
         function voltarPagina() {
             // Volta para a explicação correspondente à pergunta
-            window.location.href = `/explicacao/<%= posicao %>/1`;
+            window.location.href = `/explicacao/<%= ordem %>/1`;
         }
 
         function enviarResposta() {
@@ -86,7 +85,7 @@
             // Envia a resposta via POST
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = `/quiz/<%= posicao %>/submit`;
+            form.action = `/quiz/<%= ordem %>/submit`;
 
             const input = document.createElement('input');
             input.type = 'hidden';

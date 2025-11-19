@@ -4,7 +4,7 @@
 
 import * as conteudoIntroModel from '../models/conteudoIntroModel.js';
 
-// Renderiza a intro de um nível específico pela ordem
+// Renderiza a intro de um ordem específica
 export async function renderIntro(req, res) {
   try {
     const ordem = parseInt(req.params.ordem);

@@ -25,7 +25,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+ 
 /* ===== CORREÇÃO: Remove scroll completamente ===== */
 html, body {
     height: 100%;
@@ -53,16 +53,16 @@ body {
 }
  
 .container {
-    max-width: 1200px;
-    width: min(95vw, 1200px); /* ✅ Responsivo */
+   max-width: 1200px;
+    width: min(95vw, 1200px);
     margin: 0 auto;
-    padding: clamp(10px, 2vh, 20px); /* ✅ Padding responsivo */
+    padding: clamp(10px, 2vh, 20px);
     position: relative;
     z-index: 1;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible !important; /* 🔥 OBRIGATÓRIO PARA NÃO CORTAR O BRILHO */
 }
  
 /* ========================================
@@ -133,24 +133,23 @@ body {
 .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: clamp(20px, 4vw, 40px); /* ✅ Gap responsivo */
+    gap: clamp(20px, 4vw, 40px);
     align-items: start;
-    flex: 1; /* ✅ Ocupa espaço disponível */
-    overflow-y: auto; /* ✅ Scroll interno apenas se necessário */
-    overflow-x: hidden;
-    padding-bottom: 100px; /* ✅ Espaço para o botão fixo */
+    flex: 1;
+    overflow: visible !important;  /* ← OBRIGATÓRIO */
+    padding-bottom: 100px;
 }
-
+ 
 /* ✅ Estilo da scrollbar (se aparecer) */
 .content::-webkit-scrollbar {
     width: 8px;
 }
-
+ 
 .content::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
 }
-
+ 
 .content::-webkit-scrollbar-thumb {
     background: var(--cor-primaria);
     border-radius: 10px;
@@ -221,7 +220,7 @@ body {
     text-transform: uppercase;
    
 }
-
+ 
 /* ✅ Remove o cursor após a animação terminar */
 .rule-text p.typing-complete {
     border-right: none;
@@ -231,26 +230,27 @@ body {
 /* ========================================
    SEÇÃO DE IMAGENS
 ======================================== */
-
+ 
 .image-section {
+    height: 100%;
     display: flex;
-    flex-direction: column; /* uma embaixo da outra */
     justify-content: center;
     align-items: center;
-    gap: clamp(15px, 2vh, 20px); /* ✅ Gap responsivo */
-    padding: clamp(15px, 3vh, 30px); /* ✅ Padding responsivo */
+    padding: 0;
+    overflow: visible !important; /* 🔥 brilho sem corte */
 }
-
+ 
+ 
 .image-item {
-    max-width: min(250px, 40vw); /* ✅ Responsivo */
+    max-width: min(600px, 45vw);
     height: auto;
+    max-height: 70vh;
+    object-fit: contain;
     transition: filter 0.3s ease, transform 0.3s ease;
     cursor: pointer;
-    object-fit: contain;
-    /* ✅ Sem brilho inicial */
     filter: none;
 }
-
+ 
 /* Efeito ao passar o mouse */
 .image-item:hover {
     transform: scale(1.08);
@@ -317,54 +317,54 @@ body {
 .learn-more-btn:hover .btn-glow {
     left: 100%;
 }
-
+ 
 /* ===== ESCALAS POR ALTURA (garante que caiba sem scroll) ===== */
 @media (max-height: 900px) {
     .container { transform: scale(0.98); }
 }
-
+ 
 @media (max-height: 800px) {
     .container { transform: scale(0.94); }
 }
-
+ 
 @media (max-height: 700px) {
     .container { transform: scale(0.90); }
 }
-
+ 
 @media (max-height: 620px) {
     .container { transform: scale(0.85); }
 }
-
+ 
 @media (max-height: 540px) {
     .container { transform: scale(0.78); }
 }
-
+ 
 /* ===== AJUSTES PARA NOTEBOOKS (769px - 1366px) ===== */
 @media (min-width: 769px) and (max-width: 1366px) {
     .container {
         width: min(92vw, 1150px);
     }
-    
+   
     .main-title {
         font-size: clamp(1.15rem, 3.2vw, 2.2rem);
     }
-    
+   
     .rule-text h3 {
         font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     }
-    
+   
     .rule-text p {
         font-size: clamp(0.75rem, 1.5vw, 0.95rem);
     }
 }
-
+ 
 /* ===== NOTEBOOKS PEQUENOS (como 13" - 1366x768) ===== */
 @media (min-width: 769px) and (max-width: 1366px) and (max-height: 800px) {
     .container {
         transform: scale(0.92);
     }
 }
-
+ 
 /* ===== MONITORES GRANDES (Full HD+) ===== */
 @media (min-width: 1367px) and (min-height: 900px) {
     .container {
@@ -390,18 +390,18 @@ body {
         font-size: clamp(1rem, 5vw, 2rem);
         padding: clamp(12px, 2.5vh, 20px);
     }
-    
+   
     .image-item {
         max-width: min(200px, 50vw);
     }
-    
+   
     .footer {
         bottom: 20px;
         right: 20px;
         left: 20px;
         text-align: center;
     }
-    
+   
     .learn-more-btn {
         width: 100%;
     }
@@ -424,13 +424,14 @@ body {
     .rule-text p {
         font-size: clamp(0.7rem, 3vw, 0.9rem);
     }
-    
+   
     .image-item {
         max-width: min(180px, 60vw);
     }
 }
-
+ 
 /* ===== PROTEÇÃO CONTRA OVERFLOW ===== */
 html, body {
     overflow-x: hidden;
 }
+ 

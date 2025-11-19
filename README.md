@@ -40,7 +40,7 @@ repositorio-para-pi/
             └── script.js  # Scripts JavaScript
 ```
 
-## 🏗️ Arquitetura MVC
+## �️ Arquitetura MVC
 
 ### Model (`src/models/dataModel.js`)
 - Gerencia dados da aplicação
@@ -117,7 +117,7 @@ Abra o navegador e acesse: `http://localhost:3000`
 
 - `npm run dev`: Executa com nodemon (hot reload)
 
-## 🔧 Dependências
+## � Dependências
 
 ### Produção
 - `express`: Framework web para Node.js
@@ -160,7 +160,7 @@ O projeto foi desenvolvido com abordagem mobile-first e inclui:
 - ✅ Código limpo e documentado
 - ✅ Estrutura escalável
 
-## 🔮 Possíveis Expansões
+## � Possíveis Expansões
 
 1. **Banco de Dados**: Integrar MySQL para persistência
 2. **Autenticação**: Sistema de login/cadastro
@@ -170,7 +170,7 @@ O projeto foi desenvolvido com abordagem mobile-first e inclui:
 6. **API**: Endpoints RESTful
 7. **Testes**: Suíte de testes automatizados
 
-## 👨‍💻 Desenvolvimento
+## 👨‍� Desenvolvimento
 
 Para modificar o projeto:
 
