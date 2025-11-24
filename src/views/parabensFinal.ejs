@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parabéns</title>
-    <link rel="stylesheet" href="css/parabens.css">
+    <link rel="stylesheet" href="/css/parabens.css">
 </head>
 <body>
     <div class="container">
@@ -22,7 +22,7 @@
         <main class="content">
             <div class="parabens-section">
                 <p class="parabens-text">
-                    PARABÉNS!<br>
+                    !<br>
                     VOCÊ TERMINOU TODOS OS NÍVEIS ! VOCê MERECE UM<br>
                     CERTIFICADO, NÃO ACHA?
                 </p>
@@ -50,6 +50,11 @@
 
     <canvas id="confetti-canvas"></canvas>
 
-   
+    <script>
+        document.getElementById('certBtn').addEventListener('click', function() {
+            // Redireciona direto para a página de certificado
+            window.location.href = '/parabens/certificado';
+        });
+    </script>
 </body>
 </html>

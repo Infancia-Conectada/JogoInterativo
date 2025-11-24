@@ -22,6 +22,11 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
+// Desabilitar cache de views em desenvolvimento
+if (process.env.NODE_ENV !== 'production') {
+  app.set('view cache', false);
+}
+
 // Middleware para arquivos estáticos (CSS, JS, imagens)
 app.use(express.static(path.join(__dirname, 'src/public')));
 

@@ -48,11 +48,22 @@ export function avancarNivel(req, res) {
 // Renderiza página de certificado
 export function renderCertificado(req, res) {
   try {
-    const nomeAluno = req.query.nome || 'Aluno(a)';
+    // Pega data e hora do sistema
+    const agora = new Date();
+    const dia = String(agora.getDate()).padStart(2, '0');
+    const mes = String(agora.getMonth() + 1).padStart(2, '0');
+    const ano = agora.getFullYear();
+    const horas = String(agora.getHours()).padStart(2, '0');
+    const minutos = String(agora.getMinutes()).padStart(2, '0');
+    
+    const data = `${dia}/${mes}/${ano}`;
+    const hora = `${horas}:${minutos}`;
+    
+    console.log(`[DEBUG] Renderizando certificado com data: ${data}, hora: ${hora}`);
     
     res.render('certificado', { 
-      nomeAluno,
-      dataEmissao: new Date().toLocaleDateString('pt-BR')
+      data,
+      hora
     });
     
   } catch (error) {

@@ -28,13 +28,14 @@
             <% } %>
             
             <div class="quiz-section">
-                <h2 class="question"><%= pergunta.titulo %></h2>
-                
                 <div class="alternatives-grid">
                     <% respostas.forEach((resposta, index) => { %>
                         <div class="alternative-box" data-id="<%= resposta.id %>" onclick="selecionarResposta(this)">
                             <div class="alternative-label"><%= String.fromCharCode(65 + index) %></div>
-                            <img src="<%= resposta.imagem %>" alt="<%= resposta.titulo %>" class="alternative-image">
+                            <div class="alternative-content">
+                                <img src="<%= resposta.imagem %>" alt="" class="alternative-image">
+                                <p class="alternative-text"><%= resposta.titulo %></p>
+                            </div>
                         </div>
                     <% }); %>
                 </div>

@@ -127,8 +127,8 @@ body {
     align-items: start;
     flex: 1;
     overflow: hidden;
-    padding-bottom: clamp(80px, 12vh, 110px);
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 260px);
+    min-height: 0;
 }
 
 /* ========================================
@@ -324,19 +324,16 @@ body {
    RODAPÉ E BOTÕES CENTRALIZADOS
 ======================================== */
 .footer {
-    position: fixed;
-    bottom: clamp(12px, 2.5vh, 25px);
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
+    position: relative;
+    margin-top: clamp(15px, 2vh, 20px);
     z-index: 1000;
     display: flex;
     gap: 15px;
     align-items: center;
     justify-content: center;
-    max-width: min(95vw, 1200px);
     width: 100%;
     padding: 0 clamp(10px, 2vw, 20px);
+    flex-shrink: 0;
 }
 
 .learn-more-btn {
@@ -383,23 +380,23 @@ body {
 
 /* ===== ESCALAS POR ALTURA (garante que caiba sem scroll) ===== */
 @media (max-height: 900px) {
-    .container { transform: scale(0.96); }
+    .container { transform: scale(0.95); transform-origin: top center; }
 }
 
 @media (max-height: 800px) {
-    .container { transform: scale(0.92); }
+    .container { transform: scale(0.90); transform-origin: top center; }
 }
 
 @media (max-height: 700px) {
-    .container { transform: scale(0.88); }
+    .container { transform: scale(0.85); transform-origin: top center; }
 }
 
 @media (max-height: 620px) {
-    .container { transform: scale(0.82); }
+    .container { transform: scale(0.80); transform-origin: top center; }
 }
 
 @media (max-height: 540px) {
-    .container { transform: scale(0.76); }
+    .container { transform: scale(0.74); transform-origin: top center; }
 }
 
 /* ===== AJUSTES PARA NOTEBOOKS (769px - 1366px) ===== */
@@ -438,7 +435,7 @@ body {
     .content {
         grid-template-columns: 1fr;
         gap: clamp(15px, 2.5vh, 25px);
-        padding-bottom: 100px;
+        max-height: calc(100vh - 280px);
     }
     
     .main-title {

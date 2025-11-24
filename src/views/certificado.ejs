@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificado de Conclusão</title>
-    <link rel="stylesheet" href="css/certificado.css">
+    <link rel="stylesheet" href="/css/certificado.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <div class="certificate-container">
-        <div class="certificate-card">
+        <div class="certificate-card" id="certificateContent">
             <!-- Decorações -->
             <div class="decoration plane-left">
                 <img src="/img/imagens.png" alt="Avião">
@@ -51,7 +52,7 @@
 
                     <div class="signature-block date-block">
                         <div class="date-line">
-                            <span>____/____/____</span>
+                            <span id="dateLine"><% if (locals.data) { %><%= locals.data %><% } else { %>____/____/____<% } %></span>
                         </div>
                     </div>
 
@@ -69,6 +70,9 @@
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>Reconhecimento simbólico, sem valor oficial – mas com muito carinho!</p>
+    <p style="margin-top: 20px; font-size: 12px;">
+        Emitido em: <% if (locals.data) { %><%= locals.data %><% } else { %>____/____/____<% } %> às <% if (locals.hora) { %><%= locals.hora %><% } else { %>__:__<% } %>
+    </p>
 </div>
 
 
@@ -84,6 +88,19 @@
         </div>
     </div>
 
-    <script src="js/certificado.js"></script>
+    <script>
+        function downloadCertificate() {
+            const element = document.getElementById('certificateContent');
+            const opt = {
+                margin: 10,
+                filename: 'certificado.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
 </body>
 </html>

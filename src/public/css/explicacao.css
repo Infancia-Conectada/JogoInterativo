@@ -212,7 +212,7 @@ body {
 }
  
 .rule-text p {
-    color: var(--texto-secundario);
+    color: var(--texto-principal);
     line-height: 1.8;
     font-size: clamp(0.8rem, 1.6vw, 1rem); /* ✅ Tamanho responsivo */
     font-family: "Mochiy Pop One", sans-serif;

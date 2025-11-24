@@ -1,60 +1,53 @@
 /**
  * Controller para páginas de explicação
- * Renderiza explicações 1 ou 2 baseado na ordem
+ * Agora usa a tabela unificada 'paginas'
+ * Sempre renderiza explicacao.ejs (não importa se é tipo 1 ou 2)
+ * A view detecta automaticamente e formata como passos se for nível 2+
  */
 
-import * as explicacao1Model from '../models/explicacao1Model.js';
-import * as explicacao2Model from '../models/explicacao2Model.js';
-import * as conteudoIntroModel from '../models/conteudoIntroModel.js';
+import * as paginasModel from '../models/paginasModel.js';
 
 // Renderiza explicação específica pela ordem
 export async function renderExplicacao(req, res) {
   try {
     const ordem = parseInt(req.params.ordem);
-    const tipo = req.params.tipo || '1'; // '1' ou '2'
     
-    if (isNaN(ordem) || ordem < 1) {
+    if (isNaN(ordem) || ordem < 1 || ordem > 27) {
       return res.redirect('/inicio');
     }
 
-    let conteudo;
-    let todasExplicacoes;
+    // Busca a página pela ordem
+    const pagina = await paginasModel.getPaginaPorOrdem(ordem);
     
-    // Busca o tipo correto de explicação
-    if (tipo === '2') {
-      conteudo = await explicacao2Model.getExplicacao2PorOrdem(ordem);
-      todasExplicacoes = await explicacao2Model.getExplicacao2();
-    } else {
-      conteudo = await explicacao1Model.getExplicacao1PorOrdem(ordem);
-      todasExplicacoes = await explicacao1Model.getExplicacao1();
-    }
-    
-    if (!conteudo) {
+    if (!pagina || (pagina.tipo !== 'explicacao_1' && pagina.tipo !== 'explicacao_2')) {
       return res.status(404).render('404', { 
         title: 'Página não encontrada',
         message: 'Esta explicação não existe.'
       });
     }
 
-    // Busca a imagem correspondente da intro (pela ordem)
-    const conteudoIntro = await conteudoIntroModel.getConteudoIntroPorOrdem(ordem);
-    const imagemIntro = conteudoIntro ? conteudoIntro.imagem : null;
-
-    // Calcula se há próxima/anterior
-    const temAnterior = ordem > 1;
-    const temProxima = ordem < todasExplicacoes.length;
+    // Busca a próxima e página anterior para navegação
+    const proximaPagina = await paginasModel.getProximaPagina(ordem);
+    const paginaAnterior = await paginasModel.getPaginaAnterior(ordem);
     
-    // Define qual view usar
-    const viewName = tipo === '2' ? 'explicacao2' : 'explicacao';
+    // Calcula se há próxima/anterior
+    const temAnterior = paginaAnterior !== null;
+    const temProxima = proximaPagina !== null;
+    
+    // Sempre usa explicacao.ejs - a view detecta o nível e formata
+    console.log(`[DEBUG] Renderizando página ${ordem}, tipo: ${pagina.tipo}`);
+    
+    // Força sempre usar 'explicacao' e nunca 'explicacao2'
+    const viewName = 'explicacao';
+    console.log(`[DEBUG] View a renderizar: ${viewName}`);
     
     res.render(viewName, { 
-      conteudo,
-      imagemIntro,
+      conteudo: pagina,
       ordem,
-      tipo,
+      tipo: pagina.tipo,
       temAnterior,
       temProxima,
-      totalExplicacoes: todasExplicacoes.length
+      totalPaginas: 27
     });
   } catch (error) {
     console.error('Erro ao renderizar explicação:', error);

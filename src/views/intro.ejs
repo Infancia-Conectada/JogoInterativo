@@ -22,9 +22,20 @@
         <main class="content">
             <div class="ensino-section">
                 <div class="image-container">
-                    <img src="<%= conteudo.imagem %>" 
-                         alt="<%= conteudo.titulo %>" 
-                         class="ensino-image">
+                    <% 
+                        const imagens = conteudo.imagem ? conteudo.imagem.split('|') : [];
+                        const temDuasImagens = imagens.length > 1;
+                    %>
+                    <% if (temDuasImagens) { %>
+                        <!-- Duas imagens lado a lado -->
+                        <div style="display: flex; gap: 20px; justify-content: center; align-items: center; width: 100%;">
+                            <img src="/img/<%= imagens[0] %>" alt="<%= conteudo.titulo %>" class="ensino-image" style="max-width: 45%; height: auto;">
+                            <img src="/img/<%= imagens[1] %>" alt="<%= conteudo.titulo %>" class="ensino-image" style="max-width: 45%; height: auto;">
+                        </div>
+                    <% } else { %>
+                        <!-- Uma imagem única -->
+                        <img src="/img/<%= conteudo.imagem %>" alt="<%= conteudo.titulo %>" class="ensino-image">
+                    <% } %>
                 </div>
             </div>
         </main>
@@ -49,27 +60,21 @@
         const paginaAtual = <%= ordem %>;
         const temProxima = <%= temProxima %>;
         const temAnterior = <%= temAnterior %>;
-        const totalIntros = <%= totalIntros %>;
+        const totalPaginas = <%= totalPaginas %>;
 
         function voltarPagina() {
             if (paginaAtual > 1) {
                 const ordemAnterior = <%= ordem %> - 1;
-                // Se é ordem >= 4, volta para explicacao2 anterior, senão para intro anterior
-                if (ordemAnterior >= 4) {
-                    window.location.href = `/explicacao/${ordemAnterior}/2`;
-                } else {
-                    window.location.href = `/intro/${ordemAnterior}`;
-                }
+                window.location.href = `/pagina/${ordemAnterior}`;
+            } else {
+                // Se estiver na página 1, volta para a introdução
+                window.location.href = '/introducao';
             }
         }
 
         function proximaPagina() {
-            // A partir da ordem 4, usa explicacao2 (tipo 2)
-            if (<%= ordem %> >= 4) {
-                window.location.href = `/explicacao/<%= ordem %>/2`;
-            } else {
-                window.location.href = `/explicacao/<%= ordem %>/1`;
-            }
+            const proximaOrdem = <%= ordem %> + 1;
+            window.location.href = `/pagina/${proximaOrdem}`;
         }
     </script>
 </body>

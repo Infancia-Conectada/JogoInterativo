@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= conteudo.titulo %></title>
+    <link rel="stylesheet" href="/css/explicacao.css" />
+    <style>
+        /* Botões de navegação no rodapé */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between; /* um botão à esquerda, outro à direita */
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            padding: 0 50px; /* espaço da borda */
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="browser-bar">
+                <div class="browser-dots">
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                    <div class="dot orange"></div>
+                </div>
+            </div>
+            <h1 class="main-title"><%= conteudo.titulo %></h1>
+        </header>
+ 
+        <main class="content">
+            <!-- TEXTO EXPLICATIVO -->
+            <section class="rules-section" aria-labelledby="sec-explicacao">
+                <div class="rule-item" data-rule="1">
+                    <div class="rule-text">
+                        <h3 id="sec-explicacao">
+                            <p><%= conteudo.texto %></p>
+                        </h3>
+                    </div>
+                </div>
+            </section>
+ 
+            <!-- IMAGENS ILUSTRATIVAS -->
+            <aside class="image-section" aria-label="Imagens ilustrativas">
+                <% if (imagemIntro && imagemIntro !== 'NULL' && imagemIntro !== null) { %>
+                    <img src="<%= imagemIntro %>" alt="Ilustração da intro" class="image-item" />
+                <% } %>
+            </aside>
+        </main>
+ 
+        <footer class="footer">
+            <div class="nav-buttons">
+                <button class="learn-more-btn" id="prevPageBtn" type="button" onclick="voltarPagina()" <% if (!temAnterior) { %>disabled<% } %>>
+                    <span>Página Anterior</span>
+                    <div class="btn-glow"></div>
+                </button>
+ 
+                <button class="learn-more-btn" id="nextPageBtn" type="button" onclick="proximaPagina()">
+                    <span>Próxima Página</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </footer>
+    </div>
+ 
+    <script>
+        const paginaAtual = <%= ordem %>;
+        const temProxima = <%= temProxima %>;
+        const temAnterior = <%= temAnterior %>;
+        const tipoExplicacao = '<%= tipo %>';
+
+        function voltarPagina() {
+            if (paginaAtual > 1) {
+                const ordemAnterior = <%= ordem %> - 1;
+                window.location.href = `/pagina/${ordemAnterior}`;
+            }
+        }
+
+        function proximaPagina() {
+            const proximaOrdem = <%= ordem %> + 1;
+            window.location.href = `/pagina/${proximaOrdem}`;
+        }
+    </script>
+</body>
+</html>
+ 
