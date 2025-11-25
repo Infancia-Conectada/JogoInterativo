@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug - Carregamento de Imagens</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        img {
+            max-width: 200px;
+            margin: 10px;
+            border: 2px solid #ddd;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Debug - Carregamento de Imagens</h1>
+        
+        <h2>Testando caminhos:</h2>
+        <p>Raiz do projeto: /</p>
+        <p>Pasta public: /</p>
+        <p>Pasta img: /img/</p>
+        
+        <h3>Imagem 1 - Monitor:</h3>
+        <img src="/img/monitor.png" alt="Monitor" onerror="this.parentElement.className='error'" onload="this.parentElement.className='success'">
+        
+        <h3>Imagem 2 - Impressora:</h3>
+        <img src="/img/impressora.png" alt="Impressora" onerror="this.parentElement.className='error'" onload="this.parentElement.className='success'">
+        
+        <h3>Imagem 3 - Gabinete:</h3>
+        <img src="/img/gabinete.png" alt="Gabinete" onerror="this.parentElement.className='error'" onload="this.parentElement.className='success'">
+        
+        <h3>Imagem 4 - Teclado:</h3>
+        <img src="/img/teclado.png" alt="Teclado" onerror="this.parentElement.className='error'" onload="this.parentElement.className='success'">
+    </div>
+</body>
+</html>

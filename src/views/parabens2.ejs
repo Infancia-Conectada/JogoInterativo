@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parabéns</title>
-    <link rel="stylesheet" href="css/parabens.css">
+    <title>Parabéns!</title>
+    <link rel="stylesheet" href="/css/parabens.css">
 </head>
 <body>
     <div class="container">
@@ -16,25 +16,25 @@
                     <div class="dot"></div>
                 </div>
             </div>
-            <h1 class="main-title">
+            <h1 class="main-title"></h1>
         </header>
 
         <main class="content">
             <div class="parabens-section">
                 <p class="parabens-text">
-                    <br>
-                    VOCÊ AVANÇOU PARA O NÍVEL 3  !<br>
-                    JÁ ESTÁ SE TORNANDO UM ESPECIALISTA EM TECNOLOGIA, HEIN?  
+                    PARABÉNS!<br>
+                    VOCÊ AVANÇOU PARA O NÍVEL 3!<br>
+                    JÁ ESTÁ SE TORNANDO UM ESPECIALISTA EM TECNOLOGIA, HEIN?
                 </p>
             </div>
         </main>
 
         <footer class="footer">
-            <button class="nav-btn" id="prevBtn">
+            <button class="nav-btn" id="prevBtn" onclick="voltarPaginaAnterior()">
                 <span>PÁGINA ANTERIOR</span>
             </button>
             
-            <button class="nav-btn primary" id="nextBtn">
+            <button class="nav-btn primary" id="nextBtn" onclick="proximaPagina()">
                 <span>PRÓXIMA PÁGINA</span>
                 <div class="btn-glow"></div>
             </button>
@@ -43,7 +43,51 @@
 
     <canvas id="confetti-canvas"></canvas>
 
-   
+    <script>
+        // Confete ao carregar
+        function createConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: Math.random() * 3 + 2,
+                    color: ['#FF6B35', '#FFC107', '#4CAF50', '#2196F3', '#9C27B0'][Math.floor(Math.random() * 5)]
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.1;
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(p.x, p.y, 5, 5);
+                });
+                if (particles.some(p => p.y < canvas.height)) {
+                    requestAnimationFrame(animate);
+                }
+            }
+            animate();
+        }
+
+        createConfetti();
+
+        function voltarPaginaAnterior() {
+            window.location.href = '/pagina/17';
+        }
+
+        function proximaPagina() {
+            window.location.href = '/pagina/19';
+        }
+    </script>
 </body>
 </html>
 

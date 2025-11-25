@@ -28,17 +28,36 @@
             <% } %>
             
             <div class="quiz-section">
-                <div class="alternatives-grid">
-                    <% respostas.forEach((resposta, index) => { %>
-                        <div class="alternative-box" data-id="<%= resposta.id %>" onclick="selecionarResposta(this)">
-                            <div class="alternative-label"><%= String.fromCharCode(65 + index) %></div>
-                            <div class="alternative-content">
-                                <img src="<%= resposta.imagem %>" alt="" class="alternative-image">
-                                <p class="alternative-text"><%= resposta.titulo %></p>
+                <% 
+                    // Detecta se há imagens nas respostas
+                    const temImagens = respostas.some(r => r.imagem);
+                %>
+                
+                <% if (temImagens) { %>
+                    <!-- Layout com imagens (grid 2x2) -->
+                    <div class="alternatives-grid">
+                        <% respostas.forEach((resposta, index) => { %>
+                            <div class="alternative-box" data-id="<%= resposta.id %>" onclick="selecionarResposta(this)">
+                                <div class="alternative-label"><%= String.fromCharCode(65 + index) %></div>
+                                <% if (resposta.imagem) { %>
+                                    <img src="<%= resposta.imagem %>" alt="" class="alternative-image">
+                                <% } %>
                             </div>
-                        </div>
-                    <% }); %>
-                </div>
+                        <% }); %>
+                    </div>
+                <% } else { %>
+                    <!-- Layout com texto apenas (vertical) -->
+                    <div class="alternatives-text-grid">
+                        <% respostas.forEach((resposta, index) => { %>
+                            <div class="alternative-text-box" data-id="<%= resposta.id %>" onclick="selecionarResposta(this)">
+                                <div class="text-label"><%= String.fromCharCode(65 + index) %></div>
+                                <div class="text-content">
+                                    <%= resposta.titulo %>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                <% } %>
             </div>
         </main>
 

@@ -25,16 +25,21 @@
                     <% 
                         const imagens = conteudo.imagem ? conteudo.imagem.split('|') : [];
                         const temDuasImagens = imagens.length > 1;
+                        
+                        // Função para adicionar /img/ apenas se não tiver
+                        const getImagePath = (img) => {
+                            return img.startsWith('/img/') ? img : `/img/${img}`;
+                        };
                     %>
                     <% if (temDuasImagens) { %>
                         <!-- Duas imagens lado a lado -->
                         <div style="display: flex; gap: 20px; justify-content: center; align-items: center; width: 100%;">
-                            <img src="/img/<%= imagens[0] %>" alt="<%= conteudo.titulo %>" class="ensino-image" style="max-width: 45%; height: auto;">
-                            <img src="/img/<%= imagens[1] %>" alt="<%= conteudo.titulo %>" class="ensino-image" style="max-width: 45%; height: auto;">
+                            <img src="<%= getImagePath(imagens[0].trim()) %>" alt="<%= conteudo.titulo %>" class="ensino-image" style="max-width: 45%; height: auto;">
+                            <img src="<%= getImagePath(imagens[1].trim()) %>" alt="<%= conteudo.titulo %>" class="ensino-image" style="max-width: 45%; height: auto;">
                         </div>
-                    <% } else { %>
+                    <% } else if (conteudo.imagem) { %>
                         <!-- Uma imagem única -->
-                        <img src="/img/<%= conteudo.imagem %>" alt="<%= conteudo.titulo %>" class="ensino-image">
+                        <img src="<%= getImagePath(conteudo.imagem) %>" alt="<%= conteudo.titulo %>" class="ensino-image">
                     <% } %>
                 </div>
             </div>

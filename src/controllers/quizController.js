@@ -101,8 +101,14 @@ export async function submitResposta(req, res) {
             nivel: nivelAtual,
             mensagem: 'Parabéns! Você completou todos os níveis!'
           });
+        } else if (nivelAtual === 2) {
+          // Nível 2 completo - vai para parabens2
+          return res.render('parabens2', { 
+            nivel: nivelAtual,
+            mensagem: 'Parabéns! Você completou o nível 2!'
+          });
         } else {
-          // Vai para a página de parabéns do nível
+          // Nível 1 ou outro - vai para parabens
           return res.render('parabens', { 
             nivel: nivelAtual,
             mensagem: `Parabéns! Você completou o nível ${nivelAtual}!`
