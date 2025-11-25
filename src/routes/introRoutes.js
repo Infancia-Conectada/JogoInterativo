@@ -1,5 +1,5 @@
 import express from 'express';
-import { renderIntro } from '../controllers/introcontroller.js';
+import { renderIntro } from '../controllers/introController.js';
 
 const router = express.Router();
 
