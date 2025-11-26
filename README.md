@@ -242,4 +242,12 @@ Para modificar o projeto:
 5. Frontend mostra animação apenas se correto
 6. Confete + Tick só aparecem em respostas corretas
 
+## 👥 Criadores do Projeto
+
+- **Ana Carolina Oliveira dos Santos**
+- **Gisele de Campos Martins**
+- **Igor Ferreira da Silva**
+- **Lucas César Willian Basso**
+- **Rhuan Marcel Vieira da Silva**
+
 **Desenvolvido com ❤️ para Infância Conectada.**
