@@ -34,11 +34,10 @@ export async function renderExplicacao(req, res) {
     const temAnterior = paginaAnterior !== null;
     const temProxima = proximaPagina !== null;
     
-    // Sempre usa explicacao.ejs - a view detecta o nível e formata
+    // Sempre usa explicacao.ejs para ordem < 11, explicacao3.ejs para ordem >= 11
     console.log(`[DEBUG] Renderizando página ${ordem}, tipo: ${pagina.tipo}`);
     
-    // Força sempre usar 'explicacao' e nunca 'explicacao2'
-    const viewName = 'explicacao';
+    const viewName = ordem < 11 ? 'explicacao' : 'explicacao3';
     console.log(`[DEBUG] View a renderizar: ${viewName}`);
     
     res.render(viewName, { 

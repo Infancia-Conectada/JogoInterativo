@@ -23,24 +23,16 @@
             flex: 1;
             overflow: hidden;
             display: flex;
-            flex-direction: row-reverse;
+            flex-direction: row;
             gap: 0px;
             padding-bottom: 120px;
-        }
-
-        main.content.layout-normal {
-            flex-direction: row;
         }
 
         .text-section {
             flex: 1;
             overflow: hidden;
-            padding-right: -100px;
+            padding-right: 20px;
             max-width: none;
-        }
-
-        main.content:not(.layout-normal) .text-section {
-            margin-left: -170px;
         }
 
         .text-section::-webkit-scrollbar {
@@ -58,7 +50,7 @@
 
         .image-section {
             flex-shrink: 0;
-            width: 70%;
+            width: 40% !important;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -66,68 +58,8 @@
             overflow: hidden;
             padding-top: 0;
             margin-top: 0;
-            margin-left: -290px;
             padding-left: 20px;
         }
-        
-        <% if (ordem === 13) { %>
-        .image-section {
-            margin-top: -80px;
-        }
-        <% } %>
-        
-        <% if (ordem === 15) { %>
-        .image-section {
-            gap: 0px;
-            padding: 20px;
-            justify-content: flex-start;
-            align-items: center;
-            flex-direction: column;
-        }
-        
-        .image-section .image-item:first-child {
-            max-width: 85% !important;
-            max-height: 42% !important;
-            margin-bottom: -25px !important;
-        }
-        
-        .image-section .image-item:last-child {
-            max-width: 70% !important;
-            max-height: 35% !important;
-            margin-top: -25px !important;
-        }
-        <% } %>
-        
-        <% if (ordem === 20 || ordem === 24) { %>
-        .image-section {
-            justify-content: center;
-            align-items: center;
-            padding-top: 150px;
-        }
-        
-        .image-section video {
-            max-width: 90% !important;
-            max-height: 60% !important;
-            width: 550px !important;
-            height: auto !important;
-        }
-        <% } %>
-        
-        <% if (ordem === 22) { %>
-        .image-section {
-            justify-content: center;
-            align-items: center;
-            padding-top: 100px;
-        }
-        
-        .image-section img {
-            max-width: 95% !important;
-            max-height: 90% !important;
-            width: 1200px !important;
-            height: auto !important;
-            object-fit: contain !important;
-        }
-        <% } %>
 
         .image-section img {
             max-width: 100%;
@@ -214,7 +146,7 @@
             <h1 class="main-title"><%= conteudo.titulo %></h1>
         </header>
  
-        <main class="content <% if (ordem === 11) { %>layout-normal<% } %>" data-order="<%= ordem %>">
+        <main class="content" data-order="<%= ordem %>">
             <!-- TEXTO EXPLICATIVO -->
             <section class="rules-section" aria-labelledby="sec-explicacao">
                 <div class="text-section">

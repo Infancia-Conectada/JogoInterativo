@@ -46,7 +46,7 @@
         </main>
 
         <footer class="footer">
-            <button class="nav-btn" id="prevBtn" onclick="voltarPagina()" <% if (!temAnterior) { %>disabled<% } %>>
+            <button class="nav-btn" id="prevBtn" onclick="voltarPagina()">
                 <span>PÁGINA ANTERIOR</span>
             </button>
             
@@ -71,9 +71,9 @@
             if (paginaAtual > 1) {
                 const ordemAnterior = <%= ordem %> - 1;
                 window.location.href = `/pagina/${ordemAnterior}`;
-            } else {
-                // Se estiver na página 1, volta para a introdução
-                window.location.href = '/introducao';
+            } else if (paginaAtual === 1) {
+                // Se for a primeira intro (ordem 1), volta para o início
+                window.location.href = '/inicio';
             }
         }
 
