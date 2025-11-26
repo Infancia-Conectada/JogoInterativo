@@ -30,13 +30,6 @@
         </header>
 
         <main class="content <%= temErro ? 'shake' : '' %>">
-            <% if (temErro) { %>
-                <div class="error-message">
-                    <p class="error-text">❌ Eita! Você errou!</p>
-                    <p class="retry-text">Você só tem mais uma chance! Se errar acabou!</p>
-                </div>
-            <% } %>
-            
             <div class="quiz-section">
                 <% 
                     // Detecta se há imagens nas respostas
@@ -266,6 +259,7 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log('Resposta do servidor:', data);
                 const boxSelecionada = document.querySelector(`[data-id="${respostaSelecionada}"]`);
                 
                 if (data.correto) {
@@ -281,14 +275,17 @@
                     }, 1000);
                 } else {
                     // RESPOSTA INCORRETA
+                    console.log('Tentativas registradas:', data.tentativas);
                     if (data.tentativas >= 2) {
                         // Segunda tentativa errada - mostra erro com tremor
+                        console.log('Redirecionando para /inicio');
                         mostraErro('Você errou pela segunda vez!<br>Voltando para o início...', true);
                         setTimeout(() => {
                             window.location.href = '/inicio';
                         }, 2500);
                     } else {
                         // Primeira tentativa errada - mostra erro com tremor
+                        console.log('Mostrando erro de primeira tentativa');
                         mostraErro('Você só tem mais uma chance!<br>Se errar acabou!');
                         setTimeout(() => {
                             window.location.href = `/quiz/<%= ordem %>?erro=1`;

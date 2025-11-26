@@ -37,9 +37,13 @@ app.use(express.json());
 // Configuração de sessão
 app.use(session({
   secret: process.env.SESSION_SECRET || 'seu-segredo-super-secreto',
-  resave: false,
+  resave: true,  // Mudado para true para garantir salvamento
   saveUninitialized: true,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 horas
+  cookie: { 
+    maxAge: 1000 * 60 * 60 * 24, // 24 horas
+    httpOnly: true,
+    secure: false // mudado para false em desenvolvimento
+  }
 }));
 
 // Middleware para inicializar progresso da sessão

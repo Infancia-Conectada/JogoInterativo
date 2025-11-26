@@ -44,6 +44,16 @@ export async function renderQuiz(req, res) {
 
     // Verifica se há erro na query string
     const temErro = req.query.erro === '1';
+    
+    // Inicializa tentativas erradas se não existir
+    if (!req.session.tentativasErradas) {
+      req.session.tentativasErradas = {};
+    }
+    
+    console.log(`\n=== RENDERIZAR QUIZ ${ordem} ===`);
+    console.log(`temErro: ${temErro}`);
+    console.log(`Session tentativas:`, req.session.tentativasErradas);
+    console.log(`Tentativas para quiz ${ordem}:`, req.session.tentativasErradas[`pagina_${ordem}`] || 0);
 
     res.render('quiz', {
       pergunta: pagina,
@@ -71,6 +81,7 @@ export async function validarResposta(req, res) {
     console.log('Ordem:', ordem, 'Tipo:', typeof ordem);
     console.log('ID Resposta recebido:', req.body.idResposta, 'Tipo:', typeof req.body.idResposta);
     console.log('ID Resposta parseado:', idResposta, 'Tipo:', typeof idResposta);
+    console.log('Session atual:', req.session.tentativasErradas || {});
 
     if (isNaN(ordem) || isNaN(idResposta) || ordem < 1 || ordem > 27) {
       console.log('Erro: Validação de parametros falhou');
@@ -119,6 +130,10 @@ export async function validarResposta(req, res) {
     if (estaCorreta) {
       // Incrementa o progresso
       incrementNivelProgress(req, 1);
+      return res.json({ 
+        correto: true,
+        tentativas: 0
+      });
     } else {
       // Registra tentativa errada
       if (!req.session.tentativasErradas) {
@@ -126,13 +141,24 @@ export async function validarResposta(req, res) {
       }
       
       const chaveErro = `pagina_${ordem}`;
+      // Incrementa tentativas ANTES de retornar
       req.session.tentativasErradas[chaveErro] = (req.session.tentativasErradas[chaveErro] || 0) + 1;
+      
+      const tentativasAtuais = req.session.tentativasErradas[chaveErro];
+      
+      console.log(`\n=== TENTATIVA ERRADA REGISTRADA ===`);
+      console.log(`Ordem: ${ordem}`);
+      console.log(`Chave: ${chaveErro}`);
+      console.log(`Tentativas atuais: ${tentativasAtuais}`);
+      console.log(`Session ID: ${req.sessionID}`);
+      console.log(`Todas as tentativas:`, req.session.tentativasErradas);
+      console.log(`================================\n`);
+      
+      return res.json({ 
+        correto: false,
+        tentativas: tentativasAtuais
+      });
     }
-
-    return res.json({ 
-      correto: estaCorreta,
-      tentativas: req.session.tentativasErradas?.[`pagina_${ordem}`] || 0
-    });
 
   } catch (error) {
     console.error('Erro ao validar resposta:', error);
