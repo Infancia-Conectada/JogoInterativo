@@ -99,6 +99,26 @@
         const posicao = <%= ordem %>;
         let respostaSelecionada = null;
 
+        // Ao carregar a página, limpa seleção e habilita o botão
+        window.addEventListener('DOMContentLoaded', function() {
+            // Reseta a seleção de resposta
+            respostaSelecionada = null;
+            
+            // Limpa as seleções visuais
+            document.querySelectorAll('.alternative-box, .alternative-text-box').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Habilita o botão Próximo
+            const nextBtn = document.getElementById('nextBtn');
+            if (nextBtn) {
+                nextBtn.disabled = false;
+            }
+            
+            // Se houver erro (primeira tentativa errada), apenas exibe a mensagem
+            // O temErro já está sendo renderizado no HTML via EJS
+        });
+
         function selecionarResposta(elemento) {
             // Remove seleção anterior
             document.querySelectorAll('.alternative-box').forEach(box => {
@@ -147,13 +167,13 @@
             const ordemAtual = <%= ordem %>;
             // Casos especiais
             if (ordemAtual === 1) {
-                window.location.href = `/explicacao/1`;
+                window.location.href = `/pagina/1`;
             } else if (ordemAtual === 7) {
-                // Quiz 7 volta para explicação 6
-                window.location.href = `/explicacao/6`;
+                // Quiz 7 volta para página 6
+                window.location.href = `/pagina/6`;
             } else if (ordemAtual === 16) {
-                // Quiz 16 volta para explicação 15
-                window.location.href = `/explicacao/15`;
+                // Quiz 16 volta para página 15
+                window.location.href = `/pagina/15`;
             } else if (ordemAtual === 17) {
                 // Quiz 17 volta para quiz 16
                 window.location.href = `/quiz/16`;
@@ -161,8 +181,8 @@
                 // Quiz 18 volta para quiz 17
                 window.location.href = `/quiz/17`;
             } else if (ordemAtual === 25) {
-                // Quiz 25 volta para explicação 24
-                window.location.href = `/explicacao/24`;
+                // Quiz 25 volta para página 24
+                window.location.href = `/pagina/24`;
             } else if (ordemAtual === 26) {
                 // Quiz 26 volta para quiz 25
                 window.location.href = `/quiz/25`;
@@ -173,6 +193,52 @@
                 // Todos os outros quizzes voltam para o quiz anterior
                 window.location.href = `/quiz/${ordemAtual - 1}`;
             }
+        }
+
+        function mostraErro(mensagem, isFinal = false) {
+            // Aplica efeito de tremor na tela
+            const content = document.querySelector('.content');
+            if (content) {
+                content.classList.add('shake');
+            }
+            
+            // Cria um modal com o erro
+            const errorModal = document.createElement('div');
+            errorModal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(220, 38, 38, 0.95));
+                border: 3px solid #EF4444;
+                border-radius: 20px;
+                padding: 40px;
+                text-align: center;
+                z-index: 9999;
+                color: white;
+                font-family: 'Mochiy Pop One', sans-serif;
+                box-shadow: 0 0 50px rgba(239, 68, 68, 0.8);
+                animation: slideDown 0.3s ease-out;
+                max-width: 90%;
+                width: 400px;
+            `;
+            
+            errorModal.innerHTML = `
+                <p style="font-size: 2em; margin-bottom: 20px; font-weight: bold;">❌ Eita!</p>
+                <p style="font-size: 1.3em; margin-bottom: 15px;">${mensagem}</p>
+                ${isFinal ? '<p style="font-size: 1.1em; color: #FCA5A5; margin-top: 20px;">Você será redirecionado...</p>' : ''}
+            `;
+            
+            document.body.appendChild(errorModal);
+            
+            // Remove o tremor após a animação
+            setTimeout(() => {
+                if (content) {
+                    content.classList.remove('shake');
+                }
+            }, 500);
+            
+            return errorModal;
         }
 
         function enviarResposta() {
@@ -204,7 +270,9 @@
                 
                 if (data.correto) {
                     // RESPOSTA CORRETA - Mostra animação e confete
-                    boxSelecionada.classList.add('correct');
+                    if (boxSelecionada) {
+                        boxSelecionada.classList.add('correct');
+                    }
                     disparaConfete();
                     
                     // Aguarda animação terminar antes de enviar
@@ -214,15 +282,17 @@
                 } else {
                     // RESPOSTA INCORRETA
                     if (data.tentativas >= 2) {
-                        // Segunda tentativa errada - volta para início
+                        // Segunda tentativa errada - mostra erro com tremor
+                        mostraErro('Você errou pela segunda vez!<br>Voltando para o início...', true);
                         setTimeout(() => {
                             window.location.href = '/inicio';
-                        }, 500);
+                        }, 2500);
                     } else {
-                        // Primeira tentativa errada - recarrega com erro
+                        // Primeira tentativa errada - mostra erro com tremor
+                        mostraErro('Você só tem mais uma chance!<br>Se errar acabou!');
                         setTimeout(() => {
                             window.location.href = `/quiz/<%= ordem %>?erro=1`;
-                        }, 500);
+                        }, 2500);
                     }
                 }
             })
