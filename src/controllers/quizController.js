@@ -3,6 +3,18 @@ import * as respostasQuizModel from '../models/respostasQuizModel.js';
 import { incrementNivelProgress, resetNivelProgress } from '../middleware/sessionProgress.js';
 
 /**
+ * Embaralha um array (Fisher-Yates shuffle)
+ */
+function embaralharRespostas(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+/**
  * GET /quiz/:ordem
  * Exibe um quiz específico pela ordem (7, 8, 9, 16, 17, 18, 25, 26, 27)
  */
@@ -25,7 +37,10 @@ export async function renderQuiz(req, res) {
     }
 
     // Busca as respostas do quiz (sem expor o campo 'correta')
-    const respostas = await respostasQuizModel.getRespostasQuizPorPaginaSemCorreta(pagina.id);
+    let respostas = await respostasQuizModel.getRespostasQuizPorPaginaSemCorreta(pagina.id);
+    
+    // Embaralha as respostas para maior desafio
+    respostas = embaralharRespostas(respostas);
 
     // Verifica se há erro na query string
     const temErro = req.query.erro === '1';

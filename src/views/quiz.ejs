@@ -40,7 +40,10 @@
                             <div class="alternative-box" data-id="<%= resposta.id %>" onclick="selecionarResposta(this)">
                                 <div class="alternative-label"><%= String.fromCharCode(65 + index) %></div>
                                 <% if (resposta.imagem) { %>
-                                    <img src="<%= resposta.imagem %>" alt="" class="alternative-image">
+                                    <img src="<%= resposta.imagem %>" alt="" class="alternative-image" <% if (ordem === 16 || ordem === 18 || ordem === 26) { %>ondblclick="abrirModalImagem(event, '<%= resposta.imagem %>')"<% } %>>
+                                    <% if (ordem === 16 || ordem === 18 || ordem === 26) { %>
+                                        <div class="image-hint-small">CLIQUE DUAS VEZES PARA AUMENTAR</div>
+                                    <% } %>
                                 <% } %>
                             </div>
                         <% }); %>
@@ -76,6 +79,12 @@
     <!-- Canvas para confetes -->
     <canvas id="confetti-canvas"></canvas>
 
+    <!-- Modal fullscreen para imagens (Quiz 16) -->
+    <div id="imagemModal" class="modal-imagem">
+        <img id="imagemModalImg" src="" alt="Imagem ampliada" class="modal-imagem-content">
+        <div class="modal-imagem-hint">ESC para fechar</div>
+    </div>
+
     <script>
         const posicao = <%= ordem %>;
         let respostaSelecionada = null;
@@ -90,6 +99,39 @@
             elemento.classList.add('selected');
             respostaSelecionada = elemento.dataset.id;
         }
+
+        // ========== FUNÇÕES DO MODAL (Quiz 16 - DUPLO CLIQUE) ==========
+        function abrirModalImagem(event, imagemSrc) {
+            event.stopPropagation();
+            const modal = document.getElementById('imagemModal');
+            const img = document.getElementById('imagemModalImg');
+            img.src = imagemSrc;
+            modal.classList.add('ativo');
+        }
+
+        function fecharModalImagem() {
+            const modal = document.getElementById('imagemModal');
+            modal.classList.remove('ativo');
+        }
+
+        // Fechar modal ao clicar fora da imagem
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('imagemModal');
+            if (modal) {
+                modal.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        fecharModalImagem();
+                    }
+                });
+            }
+        });
+
+        // Fechar modal ao pressionar ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                fecharModalImagem();
+            }
+        });
 
         function voltarPagina() {
             // Volta para a explicação correspondente à pergunta

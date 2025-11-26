@@ -4,102 +4,361 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificado de Conclusão</title>
-    <link rel="stylesheet" href="/css/certificado.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .certificate-wrapper {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        #certificateContent {
+            background: linear-gradient(135deg, #A8C5E3 0%, #E8D5F2 100%);
+            border-radius: 20px;
+            padding: 60px 80px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 8px solid white;
+            width: 100%;
+        }
+
+        .decoration {
+            position: absolute;
+            font-size: 60px;
+        }
+
+        .plane-left { top: 30px; left: 40px; }
+        .rocket-right { top: 30px; right: 40px; }
+        .blocks-left { bottom: 40px; left: 40px; }
+        .blocks-right { bottom: 40px; right: 40px; }
+
+        .certificate-content {
+            position: relative;
+            text-align: center;
+            color: #4A3552;
+        }
+
+        .certificate-title {
+            font-size: 72px;
+            font-weight: 900;
+            color: #4A3552;
+            margin-bottom: 25px;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+        }
+
+        .certificate-subtitle {
+            font-size: 20px;
+            color: #5A4562;
+            margin-bottom: 50px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .student-name-section {
+            margin: 60px 0;
+        }
+
+        .name-line {
+            border-bottom: 3px solid #4A3552;
+            padding: 20px 0;
+            margin: 0 auto 15px;
+            max-width: 600px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .name-line span {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4A3552;
+        }
+
+        .name-label {
+            font-size: 16px;
+            font-style: italic;
+            color: #6A5572;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .certificate-text {
+            margin: 60px 0;
+            font-size: 22px;
+            line-height: 2;
+            color: #4A3552;
+        }
+
+        .certificate-text p {
+            margin: 20px 0;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 100px;
+            gap: 60px;
+        }
+
+        .signature-block {
+            flex: 1;
+            text-align: center;
+        }
+
+        .signature-line {
+            border-bottom: 2px solid #4A3552;
+            width: 100%;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        .signature-label {
+            font-size: 15px;
+            font-style: italic;
+            color: #6A5572;
+            font-weight: 600;
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 15px;
+            color: #5A4562;
+        }
+
+        .footer-info p {
+            margin: 12px 0;
+            line-height: 1.6;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3B82F6, #22D3EE);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            #certificateContent {
+                padding: 40px 30px;
+            }
+            .certificate-title { font-size: 40px; }
+            .certificate-text { font-size: 16px; }
+            .signatures { flex-direction: column; gap: 30px; }
+            .decoration { font-size: 40px; }
+            .controls {
+                position: static;
+                margin: 20px auto;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="certificate-container">
-        <div class="certificate-card" id="certificateContent">
-            <!-- Decorações -->
-            <div class="decoration plane-left">
-                <img src="/img/mouse~pl.png" alt="Mouse">
-            </div>
-            <div class="decoration rocket-right">
-                <img src="/img/foguete.png" alt="Foguete">
-            </div>
-            <div class="decoration blocks-left">
-                <img src="/img/blocoss.png" alt="Blocos">
-            </div>
-            <div class="decoration blocks-right">
-                <img src="/img/blocoss.png" alt="Blocos">
-            </div>
+    <div class="certificate-wrapper">
+        <div id="certificateContent">
+            <div class="decoration plane-left">✈️</div>
+            <div class="decoration rocket-right">🚀</div>
+            <div class="decoration blocks-left">🧩</div>
+            <div class="decoration blocks-right">🎮</div>
 
-            <!-- Conteúdo do Certificado -->
             <div class="certificate-content">
-                <h1 class="certificate-title">CERTIFICADO</h1>
+                <div class="certificate-title">CERTIFICADO</div>
                 
-                <p class="certificate-subtitle">
+                <div class="certificate-subtitle">
                     Que esta seja apenas a primeira de muitas conquistas em sua vida.
-                </p>
+                </div>
 
                 <div class="student-name-section">
                     <div class="name-line">
-                        <span id="studentName">___________________________________</span>
+                        <span id="studentName">NOME DO ALUNO</span>
                     </div>
-                    <p class="name-label">NOME DO ALUNO</p>
+                    <div class="name-label">NOME DO ALUNO</div>
                 </div>
 
                 <div class="certificate-text">
-                    <p>Você concluiu o Quiz Conectado</p>
+                    <p>Você concluiu o <strong>Quiz Conectado</strong></p>
                     <p>e recebe este certificado em reconhecimento ao seu desempenho.</p>
                 </div>
 
                 <div class="signatures">
                     <div class="signature-block">
                         <div class="signature-line"></div>
-                        <p class="signature-label">PROFESSORA</p>
-                    </div>
-
-                    <div class="signature-block date-block">
-                        <div class="date-line">
-                            <span id="dateLine"><% if (locals.data) { %><%= locals.data %><% } else { %>____/____/____<% } %></span>
-                        </div>
+                        <div class="signature-label">RESPONSÁVEL</div>
                     </div>
 
                     <div class="signature-block">
                         <div class="signature-line"></div>
-                        <p class="signature-label">DIRETOR(A)</p>
+                        <div class="signature-label">ASSINATURA DO ALUNO</div>
+                    </div>
+
+                    <div class="signature-block">
+                        <div class="signature-line"></div>
+                        <div class="signature-label">INSTITUIÇÃO</div>
                     </div>
                 </div>
+
+                <div class="footer-info">
+                    <p><strong>Reconhecimento simbólico, sem valor oficial – mas com muito carinho! ❤️</strong></p>
+                    <p>Emitido em: <span id="dataEmissao">__/__/____</span> às <span id="horaEmissao">__:__</span></p>
+                </div>
             </div>
-             
-            <p>
-            
-            <div style="text-align: center; margin-top: 40px;">
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>Reconhecimento simbólico, sem valor oficial – mas com muito carinho!</p>
-    <p style="margin-top: 20px; font-size: 12px;">
-        Emitido em: <% if (locals.data) { %><%= locals.data %><% } else { %>____/____/____<% } %> às <% if (locals.hora) { %><%= locals.hora %><% } else { %>__:__<% } %>
-    </p>
-</div>
-
-
-            <!-- Botão de Download -->
-            <button class="download-btn" id="downloadBtn" onclick="downloadCertificate()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                Baixar Certificado
-            </button>
         </div>
     </div>
 
+    <div class="controls">
+        <button class="btn" onclick="editarNome()">✏️ Editar Nome</button>
+        <button class="btn" id="downloadBtn" onclick="downloadCertificate()">⬇️ Baixar PDF</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        function downloadCertificate() {
-            const element = document.getElementById('certificateContent');
-            const opt = {
-                margin: 10,
-                filename: 'certificado.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
-            };
+        let nomeAluno = '';
+
+        function solicitarNomeAluno() {
+            const nome = prompt('Digite o nome do aluno para o certificado:');
+            if (nome && nome.trim() !== '') {
+                nomeAluno = nome.trim();
+                document.getElementById('studentName').textContent = nomeAluno.toUpperCase();
+            }
+        }
+
+        function editarNome() {
+            solicitarNomeAluno();
+        }
+
+        function definirDataHora() {
+            const agora = new Date();
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+            const ano = agora.getFullYear();
+            const hora = String(agora.getHours()).padStart(2, '0');
+            const minuto = String(agora.getMinutes()).padStart(2, '0');
             
-            html2pdf().set(opt).from(element).save();
+            document.getElementById('dataEmissao').textContent = `${dia}/${mes}/${ano}`;
+            document.getElementById('horaEmissao').textContent = `${hora}:${minuto}`;
+        }
+
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                definirDataHora();
+                solicitarNomeAluno();
+            }, 500);
+        });
+
+        async function downloadCertificate() {
+            const btn = document.getElementById('downloadBtn');
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Gerando PDF...';
+            
+            try {
+                const element = document.getElementById('certificateContent');
+                
+                // Captura o elemento como canvas com alta qualidade
+                const canvas = await html2canvas(element, {
+                    scale: 3,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#E8D5F2',
+                    width: element.offsetWidth,
+                    height: element.offsetHeight,
+                    windowWidth: element.scrollWidth,
+                    windowHeight: element.scrollHeight
+                });
+
+                // Converte canvas para imagem
+                const imgData = canvas.toDataURL('image/png');
+                
+                // Cria PDF no formato paisagem A4
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                // Dimensões A4 paisagem
+                const pdfWidth = 297;
+                const pdfHeight = 210;
+                
+                // Calcula proporções para caber no PDF
+                const imgWidth = canvas.width;
+                const imgHeight = canvas.height;
+                const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+                
+                const imgScaledWidth = imgWidth * ratio;
+                const imgScaledHeight = imgHeight * ratio;
+                
+                // Centraliza a imagem no PDF
+                const x = (pdfWidth - imgScaledWidth) / 2;
+                const y = (pdfHeight - imgScaledHeight) / 2;
+
+                pdf.addImage(imgData, 'PNG', x, y, imgScaledWidth, imgScaledHeight);
+                
+                // Salva o PDF
+                const filename = nomeAluno 
+                    ? `certificado-${nomeAluno.toLowerCase().replace(/\s+/g, '-')}.pdf`
+                    : 'certificado-quiz-conectado.pdf';
+                    
+                pdf.save(filename);
+                
+                btn.innerHTML = '✅ PDF Gerado!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                alert('Erro ao gerar PDF: ' + error.message);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
         }
     </script>
 </body>

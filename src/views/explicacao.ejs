@@ -32,6 +32,7 @@
             flex: 1;
             overflow: auto;
             padding-right: 10px;
+            max-width: 600px;
         }
 
         .text-section::-webkit-scrollbar {
@@ -53,9 +54,70 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             overflow: hidden;
+            padding-top: 0;
+            margin-top: 0;
         }
+        
+        <% if (ordem === 13) { %>
+        .image-section {
+            margin-top: -80px;
+        }
+        <% } %>
+        
+        <% if (ordem === 15) { %>
+        .image-section {
+            gap: 0px;
+            padding: 20px;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .image-section .image-item:first-child {
+            max-width: 85% !important;
+            max-height: 42% !important;
+            margin-bottom: -25px !important;
+        }
+        
+        .image-section .image-item:last-child {
+            max-width: 70% !important;
+            max-height: 35% !important;
+            margin-top: -25px !important;
+        }
+        <% } %>
+        
+        <% if (ordem === 20 || ordem === 24) { %>
+        .image-section {
+            justify-content: center;
+            align-items: center;
+            padding-top: 150px;
+        }
+        
+        .image-section video {
+            max-width: 90% !important;
+            max-height: 60% !important;
+            width: 550px !important;
+            height: auto !important;
+        }
+        <% } %>
+        
+        <% if (ordem === 22) { %>
+        .image-section {
+            justify-content: center;
+            align-items: center;
+            padding-top: 100px;
+        }
+        
+        .image-section img {
+            max-width: 95% !important;
+            max-height: 90% !important;
+            width: 1200px !important;
+            height: auto !important;
+            object-fit: contain !important;
+        }
+        <% } %>
 
         .image-section img {
             max-width: 100%;
@@ -91,7 +153,7 @@
         .steps-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 30px;
             margin-top: 20px;
         }
         
@@ -125,7 +187,7 @@
             padding-top: 0px;
             line-height: 1.6;
             font-size: 16px;
-            text-align: justify;
+            text-align: left;
         }
     </style>
 </head>
@@ -188,10 +250,10 @@
                         const isVideo = (arquivo) => /\.(mp4|webm|ogg)$/i.test(arquivo);
                         const getMediaPath = (arquivo) => arquivo.startsWith('/') ? arquivo : `/img/${arquivo}`;
                     %>
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%; height: 100%; margin: 0; padding: 0;">
                         <% if (temDuasImagens) { %>
                             <!-- Duas imagens lado a lado -->
-                            <div style="display: flex; flex-direction: column; gap: 20px; justify-content: center; align-items: center; width: 100%; height: 100%;">
+                            <div style="display: flex; flex-direction: column; gap: 20px; justify-content: flex-start; align-items: center; width: 100%; padding: 0; margin: 0;">
                                 <% if (isVideo(imagens[0])) { %>
                                     <video src="<%= getMediaPath(imagens[0]) %>" alt="Vídeo" class="image-item" controls autoplay loop muted style="max-width: 100%; height: auto;"></video>
                                 <% } else { %>
@@ -206,12 +268,12 @@
                         <% } else { %>
                             <!-- Uma imagem/vídeo única -->
                             <% if (isVideo(conteudo.imagem)) { %>
-                                <video src="<%= getMediaPath(conteudo.imagem) %>" alt="Vídeo" class="image-item" controls autoplay loop muted style="max-width: 100%; height: auto;"></video>
+                                <video src="<%= getMediaPath(conteudo.imagem) %>" alt="Vídeo" class="image-item" controls autoplay loop muted style="max-width: 100%; height: auto; margin: 0; padding: 0;"></video>
                                 <% if (ordem === 24) { %>
                                     <p class="video-hint">CLIQUE NO VÍDEO PARA AUMENTAR</p>
                                 <% } %>
                             <% } else { %>
-                                <img src="<%= getMediaPath(conteudo.imagem) %>" alt="Ilustração" class="image-item" />
+                                <img src="<%= getMediaPath(conteudo.imagem) %>" alt="Ilustração" class="image-item" style="margin: 0; padding: 0;" />
                             <% } %>
                         <% } %>
                     </div>
