@@ -5,8 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= conteudo.titulo %></title>
     <link rel="stylesheet" href="/css/intro.css">
+    <link rel="stylesheet" href="/css/progresso.css">
 </head>
 <body>
+    <!-- Barra de Progresso -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" style="width: <%= Math.max(1, (ordem / 27) * 100) %>%">
+            <% if (Math.max(1, (ordem / 27) * 100) >= 10) { %>
+                <%= Math.round(Math.max(1, (ordem / 27) * 100)) %>%
+            <% } %>
+        </div>
+    </div>
+
     <div class="container">
         <header class="header">
             <div class="browser-bar">

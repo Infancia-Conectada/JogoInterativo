@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= conteudo.titulo %></title>
     <link rel="stylesheet" href="/css/explicacao.css" />
+    <link rel="stylesheet" href="/css/progresso.css" />
     <style>
         body {
             overflow: hidden;
@@ -134,6 +135,15 @@
     </style>
 </head>
 <body>
+    <!-- Barra de Progresso -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" style="width: <%= (ordem / 27) * 100 %>%">
+            <% if ((ordem / 27) * 100 >= 10) { %>
+                <%= Math.round((ordem / 27) * 100) %>%
+            <% } %>
+        </div>
+    </div>
+
     <div class="container">
         <header class="header">
             <div class="browser-bar">

@@ -43,6 +43,63 @@
     <canvas id="confetti-canvas"></canvas>
 
     <script>
+        // Dispara confete ao carregar a página
+        window.addEventListener('load', function() {
+            disparaConfeteContinuo();
+        });
+
+        function disparaConfeteContinuo() {
+            setInterval(() => {
+                disparaConfete();
+            }, 800); // Dispara confete a cada 800ms
+        }
+
+        function disparaConfete() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: -10,
+                    velocityX: (Math.random() - 0.5) * 8,
+                    velocityY: Math.random() * 8 + 4,
+                    color: ['#22D3EE', '#3B82F6', '#FACC15'][Math.floor(Math.random() * 3)],
+                    size: Math.random() * 5 + 3
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach((p, i) => {
+                    p.x += p.velocityX;
+                    p.y += p.velocityY;
+                    p.velocityY += 0.1; // gravidade
+
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(p.x, p.y, p.size, p.size);
+
+                    if (p.y > canvas.height) {
+                        particles.splice(i, 1);
+                    }
+                });
+
+                if (particles.length > 0) {
+                    requestAnimationFrame(animate);
+                }
+            }
+
+            animate();
+        }
+    </script>
+
+    <script>
         // Confete ao carregar
         function createConfetti() {
             const canvas = document.getElementById('confetti-canvas');

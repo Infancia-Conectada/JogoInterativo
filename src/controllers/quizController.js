@@ -59,6 +59,88 @@ export async function renderQuiz(req, res) {
 }
 
 /**
+ * POST /quiz/:ordem/validar
+ * Valida a resposta e retorna JSON
+ */
+export async function validarResposta(req, res) {
+  try {
+    const ordem = parseInt(req.params.ordem);
+    const idResposta = parseInt(req.body.idResposta);
+
+    console.log('\n=== VALIDAR RESPOSTA ===');
+    console.log('Ordem:', ordem, 'Tipo:', typeof ordem);
+    console.log('ID Resposta recebido:', req.body.idResposta, 'Tipo:', typeof req.body.idResposta);
+    console.log('ID Resposta parseado:', idResposta, 'Tipo:', typeof idResposta);
+
+    if (isNaN(ordem) || isNaN(idResposta) || ordem < 1 || ordem > 27) {
+      console.log('Erro: Validação de parametros falhou');
+      return res.json({ correto: false });
+    }
+
+    // Busca a página (quiz) pela ordem
+    const pagina = await paginasModel.getPaginaPorOrdem(ordem);
+    
+    if (!pagina || pagina.tipo !== 'quiz') {
+      return res.json({ correto: false });
+    }
+
+    // Busca a resposta selecionada
+    const respostaSelecionada = await respostasQuizModel.getRespostaPorId(idResposta);
+    
+    console.log('Resposta encontrada:', respostaSelecionada);
+    
+    if (!respostaSelecionada) {
+      console.log('Erro: Resposta não encontrada para ID:', idResposta);
+      return res.json({ correto: false });
+    }
+
+    // Validação de segurança: resposta deve pertencer ao quiz atual
+    if (respostaSelecionada.id_pagina !== pagina.id) {
+      return res.json({ correto: false });
+    }
+
+    // Verifica se a resposta está correta
+    // MySQL pode retornar como 0, 1, '0', '1', true, false, bit, etc
+    const estaCorreta = respostaSelecionada.correta === 1 || 
+                       respostaSelecionada.correta === true || 
+                       respostaSelecionada.correta === '1' ||
+                       Number(respostaSelecionada.correta) === 1 ||
+                       String(respostaSelecionada.correta).toLowerCase() === 'true';
+    
+    // Debug
+    console.log('Validação de resposta:', {
+      idResposta,
+      resposta: respostaSelecionada,
+      corretaValue: respostaSelecionada.correta,
+      corretaType: typeof respostaSelecionada.correta,
+      estaCorreta
+    });
+    
+    if (estaCorreta) {
+      // Incrementa o progresso
+      incrementNivelProgress(req, 1);
+    } else {
+      // Registra tentativa errada
+      if (!req.session.tentativasErradas) {
+        req.session.tentativasErradas = {};
+      }
+      
+      const chaveErro = `pagina_${ordem}`;
+      req.session.tentativasErradas[chaveErro] = (req.session.tentativasErradas[chaveErro] || 0) + 1;
+    }
+
+    return res.json({ 
+      correto: estaCorreta,
+      tentativas: req.session.tentativasErradas?.[`pagina_${ordem}`] || 0
+    });
+
+  } catch (error) {
+    console.error('Erro ao validar resposta:', error);
+    res.json({ correto: false });
+  }
+}
+
+/**
  * POST /quiz/:ordem/submit
  * Valida a resposta do usuário
  */
@@ -93,7 +175,7 @@ export async function submitResposta(req, res) {
     }
 
     // Verifica se a resposta está correta
-    if (respostaSelecionada.correta === 1 || respostaSelecionada.correta === true) {
+    if (respostaSelecionada.correta === 1 || respostaSelecionada.correta === true || respostaSelecionada.correta === '1' || Number(respostaSelecionada.correta) === 1) {
       // RESPOSTA CORRETA
       
       // Incrementa o progresso

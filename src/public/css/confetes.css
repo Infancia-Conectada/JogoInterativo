@@ -1,0 +1,65 @@
+/* ===== CONFETES LOOPING ABUNDANTES ===== */
+@keyframes confete-cair {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes confete-girar {
+    0% {
+        transform: translateY(-100px) rotateX(0deg) rotateY(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotateX(720deg) rotateY(720deg);
+        opacity: 0;
+    }
+}
+
+.confete {
+    position: fixed;
+    font-size: 20px;
+    animation: confete-cair 4s linear infinite;
+    z-index: 9999;
+    pointer-events: none;
+    top: -50px;
+}
+
+/* 30 confetes com delays e posições variadas */
+.confete-1 { left: 5%; animation-delay: 0s; }
+.confete-2 { left: 8%; animation-delay: 0.1s; }
+.confete-3 { left: 11%; animation-delay: 0.2s; }
+.confete-4 { left: 14%; animation-delay: 0.3s; }
+.confete-5 { left: 17%; animation-delay: 0.4s; }
+.confete-6 { left: 20%; animation-delay: 0.5s; }
+.confete-7 { left: 23%; animation-delay: 0.6s; }
+.confete-8 { left: 26%; animation-delay: 0.7s; }
+.confete-9 { left: 29%; animation-delay: 0.8s; }
+.confete-10 { left: 32%; animation-delay: 0.9s; }
+
+.confete-11 { left: 35%; animation-delay: 1s; }
+.confete-12 { left: 38%; animation-delay: 1.1s; }
+.confete-13 { left: 41%; animation-delay: 1.2s; }
+.confete-14 { left: 44%; animation-delay: 1.3s; }
+.confete-15 { left: 47%; animation-delay: 1.4s; }
+.confete-16 { left: 50%; animation-delay: 1.5s; }
+.confete-17 { left: 53%; animation-delay: 1.6s; }
+.confete-18 { left: 56%; animation-delay: 1.7s; }
+.confete-19 { left: 59%; animation-delay: 1.8s; }
+.confete-20 { left: 62%; animation-delay: 1.9s; }
+
+.confete-21 { left: 65%; animation-delay: 2s; }
+.confete-22 { left: 68%; animation-delay: 2.1s; }
+.confete-23 { left: 71%; animation-delay: 2.2s; }
+.confete-24 { left: 74%; animation-delay: 2.3s; }
+.confete-25 { left: 77%; animation-delay: 2.4s; }
+.confete-26 { left: 80%; animation-delay: 2.5s; }
+.confete-27 { left: 83%; animation-delay: 2.6s; }
+.confete-28 { left: 86%; animation-delay: 2.7s; }
+.confete-29 { left: 89%; animation-delay: 2.8s; }
+.confete-30 { left: 92%; animation-delay: 2.9s; }
