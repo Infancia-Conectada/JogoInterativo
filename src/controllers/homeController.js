@@ -5,6 +5,10 @@
 // Renderiza a página inicial do jogo
 export function renderInicio(req, res) {
   try {
+    // Limpa tentativas de erros quando volta ao início
+    if (req.session) {
+      req.session.tentativasErradas = {};
+    }
     res.render('inicio');
   } catch (error) {
     console.error('Erro ao renderizar início:', error);
@@ -26,6 +30,8 @@ export function renderIntroducao(req, res) {
 export function iniciarJogo(req, res) {
   // Reseta o progresso ao iniciar novo jogo
   req.session.progress = {};
+  // Reseta também o contador de tentativas erradas
+  req.session.tentativasErradas = {};
   res.redirect('/intro/1');
 }
 

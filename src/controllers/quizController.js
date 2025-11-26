@@ -141,22 +141,22 @@ export async function validarResposta(req, res) {
       }
       
       const chaveErro = `pagina_${ordem}`;
-      // Incrementa tentativas ANTES de retornar
-      req.session.tentativasErradas[chaveErro] = (req.session.tentativasErradas[chaveErro] || 0) + 1;
-      
-      const tentativasAtuais = req.session.tentativasErradas[chaveErro];
+      // IMPORTANTE: Retorna o número ANTES de incrementar
+      const tentativasAnteriores = req.session.tentativasErradas[chaveErro] || 0;
+      // Agora incrementa para a próxima tentativa
+      req.session.tentativasErradas[chaveErro] = tentativasAnteriores + 1;
       
       console.log(`\n=== TENTATIVA ERRADA REGISTRADA ===`);
       console.log(`Ordem: ${ordem}`);
       console.log(`Chave: ${chaveErro}`);
-      console.log(`Tentativas atuais: ${tentativasAtuais}`);
+      console.log(`Tentativas anteriores: ${tentativasAnteriores}`);
       console.log(`Session ID: ${req.sessionID}`);
       console.log(`Todas as tentativas:`, req.session.tentativasErradas);
       console.log(`================================\n`);
       
       return res.json({ 
         correto: false,
-        tentativas: tentativasAtuais
+        tentativas: tentativasAnteriores // Retorna o número anterior, não o incrementado
       });
     }
 
@@ -203,6 +203,12 @@ export async function submitResposta(req, res) {
     // Verifica se a resposta está correta
     if (respostaSelecionada.correta === 1 || respostaSelecionada.correta === true || respostaSelecionada.correta === '1' || Number(respostaSelecionada.correta) === 1) {
       // RESPOSTA CORRETA
+      
+      // LIMPA o contador de tentativas erradas para este quiz
+      if (req.session.tentativasErradas) {
+        const chaveErro = `pagina_${ordem}`;
+        delete req.session.tentativasErradas[chaveErro];
+      }
       
       // Incrementa o progresso
       incrementNivelProgress(req, 1);

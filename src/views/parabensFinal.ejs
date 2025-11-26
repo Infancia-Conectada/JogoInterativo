@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/parabens.css">
 </head>
 <body>
+
     <div class="container">
         <header class="header">
             <div class="browser-bar">
@@ -48,6 +49,13 @@
     <script>
         // Dispara confete ao carregar a página
         window.addEventListener('load', function() {
+            // Toca áudio de parabéns
+            const audioParabens = new Audio('/mp3/parabens.mp3');
+            audioParabens.volume = 0.5;
+            audioParabens.play().catch(err => {
+                console.warn('Erro ao reproduzir áudio:', err);
+            });
+
             disparaConfeteContinuo();
         });
 

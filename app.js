@@ -27,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.set('view cache', false);
 }
 
-// Middleware para arquivos estáticos (CSS, JS, imagens)
+// Middleware para arquivos estáticos (CSS, JS, imagens, mp3)
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 // Middleware para parsing de formulários

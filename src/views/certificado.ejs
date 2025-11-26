@@ -197,6 +197,7 @@
     </style>
 </head>
 <body>
+
     <div class="certificate-wrapper">
         <div id="certificateContent">
             <div class="decoration plane-left">✈️</div>
@@ -257,11 +258,21 @@
     <script>
         let nomeAluno = '';
 
+        function reproduzirAudio(arquivo) {
+            const audio = new Audio(`/mp3/${arquivo}`);
+            audio.volume = 0.5;
+            audio.play().catch(err => {
+                console.warn('Erro ao reproduzir áudio:', err);
+            });
+        }
+
         function solicitarNomeAluno() {
             const nome = prompt('Digite o nome do aluno para o certificado:');
             if (nome && nome.trim() !== '') {
                 nomeAluno = nome.trim();
                 document.getElementById('studentName').textContent = nomeAluno.toUpperCase();
+                // Toca tada.mp3 quando o nome é inserido
+                reproduzirAudio('tada.mp3');
             }
         }
 

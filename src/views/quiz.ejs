@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/progresso.css">
 </head>
 <body>
+
     <!-- Barra de Progresso -->
     <div class="progress-bar-container">
         <div class="progress-bar" style="width: <%= (ordem / 27) * 100 %>%">
@@ -91,6 +92,28 @@
     <script>
         const posicao = <%= ordem %>;
         let respostaSelecionada = null;
+
+        // ========== SISTEMA DE ÁUDIO ==========
+        function reproduzirAudio(arquivo) {
+            const audio = new Audio(`/mp3/${arquivo}`);
+            audio.volume = 0.5;
+            audio.play().catch(err => {
+                console.warn('Erro ao reproduzir áudio:', err);
+            });
+            return audio;
+        }
+
+        function reproduzirAudioEAguardar(arquivo) {
+            return new Promise((resolve) => {
+                const audio = new Audio(`/mp3/${arquivo}`);
+                audio.volume = 0.5;
+                audio.onended = () => resolve();
+                audio.play().catch(err => {
+                    console.warn('Erro ao reproduzir áudio:', err);
+                    resolve(); // Resolve mesmo com erro
+                });
+            });
+        }
 
         // Ao carregar a página, limpa seleção e habilita o botão
         window.addEventListener('DOMContentLoaded', function() {
@@ -264,6 +287,7 @@
                 
                 if (data.correto) {
                     // RESPOSTA CORRETA - Mostra animação e confete
+                    reproduzirAudio('certo.mp3'); // Toca o áudio de acerto
                     if (boxSelecionada) {
                         boxSelecionada.classList.add('correct');
                     }
@@ -276,15 +300,17 @@
                 } else {
                     // RESPOSTA INCORRETA
                     console.log('Tentativas registradas:', data.tentativas);
-                    if (data.tentativas >= 2) {
-                        // Segunda tentativa errada - mostra erro com tremor
+                    if (data.tentativas >= 1) {
+                        // Segunda tentativa errada - mostra erro com tremor - SÓ TOCA GAMEOVER
                         console.log('Redirecionando para /inicio');
                         mostraErro('Você errou pela segunda vez!<br>Voltando para o início...', true);
-                        setTimeout(() => {
+                        setTimeout(async () => {
+                            await reproduzirAudioEAguardar('gameover.mp3'); // Aguarda gameover terminar
                             window.location.href = '/inicio';
                         }, 2500);
                     } else {
-                        // Primeira tentativa errada - mostra erro com tremor
+                        // Primeira tentativa errada - mostra erro com tremor e áudio errado
+                        reproduzirAudio('errado.mp3'); // Toca o áudio de erro
                         console.log('Mostrando erro de primeira tentativa');
                         mostraErro('Você só tem mais uma chance!<br>Se errar acabou!');
                         setTimeout(() => {
